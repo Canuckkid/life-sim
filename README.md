@@ -34,4 +34,3 @@ Create an interactive Java game that simulates a simplification of a marine ecos
 ### Impossible Features
 - 3D Graphics 
 - Action animations (eg. eating animation)
-- 
