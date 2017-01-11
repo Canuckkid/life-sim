@@ -60,6 +60,10 @@ flycheck_*.el
 # directory configuration
 .dir-locals.el
 
+## IntelliJ IDEA
+.idea/workspace.xml
+.idea/tasks.xml
+
 ### OS-sepecific ignores
 ## Linux (from github/gitignore)
 *~
