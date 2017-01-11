@@ -14,7 +14,6 @@ public class Ecosystem {
         public static void garbagePatch(){}
         public static void invasiveSpecies(){}
         public static void oilSpill(){}
-
     }
 
 }
