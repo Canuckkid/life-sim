@@ -5,13 +5,21 @@ package organisms;
  */
 public class Fish extends Organism {
 
-    @Override
-    public void reproduce() {
+    public Fish(){
+        super();
 
+        lifeSpan = 500;
+        foodValue = 5;
     }
 
     @Override
     public void eat(Organism prey) {
+        if(foodValue < FOOD_LIMIT){ //Check if the organism is full
+            if(prey instanceof Algae) { //Fish can only eat algae
+                foodLevel += prey.getFoodValue(); //Add food to the predator
+                prey.setAlive(false); //The prey has now died
+            }
+        }
 
     }
 

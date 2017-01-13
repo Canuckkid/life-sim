@@ -1,5 +1,5 @@
 # Mechanics ideas
-- Organisms have goals:
+- organisms have goals:
   - Stay alive
   - Reproduce
 - Actions can facilitate these goals

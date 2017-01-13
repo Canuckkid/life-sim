@@ -5,9 +5,46 @@ package organisms;
  */
 public abstract class Organism{
 
-    private boolean isAlive;
+    boolean isAlive; //Living status of organism
+    int age;
+    int lifeSpan; //Ticks not years
+    int foodValue; //The value a predator receives when it eats an organism
+    int foodLevel; //The food in the
 
-    abstract void reproduce();
+    final int FOOD_LIMIT = 25;
+
+    public Organism(){
+        age = 0;
+        isAlive = true;
+        foodLevel = 10;
+    }
+
+    /**
+     * Checks is organism is fertile. organisms are fertile when they are in the second half of their lives
+     * @return true if fertile; false if not.
+     */
+    public boolean isFertile(){
+        return age > lifeSpan / 2;
+    }
+
     abstract void eat(Organism prey);
     abstract void move();
+
+    /**
+     * Checks if organism's age is within the life span. Updates the isAlive boolean.
+     * @return True if alive; false if dead.
+     */
+    public boolean isAlive(){
+        isAlive = age <= lifeSpan;
+
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+    public int getFoodValue() {
+        return foodValue;
+    }
 }
