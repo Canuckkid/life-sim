@@ -27,6 +27,7 @@ public final class GameUtils {
      * and be a file.
      * @return the organism array represented by the CSV file
      * @throws FileNotFoundException if the file passed doesn't exist
+     * @see docs/file_format.md contains the CSV specification
      */
     public Organism[][] loadPattern(File f) throws FileNotFoundException {
         assert f.isFile() : f;
@@ -75,5 +76,44 @@ public final class GameUtils {
         }
 
         return board;
+    }
+
+    /**
+     * Save the state of the simulation to a file.
+     *
+     * @param f the file to save to. If the file already exists, its
+     * contents will be clobbered and replaced with the simulation. If
+     * the file doesn't exist, it will be created.
+     * @param board the board state to save
+     * @throws IOException if the file passed is a directory
+     * @see docs/file_format.md contains the CSV specification
+     */
+    public static void savePattern(File f, Organism[][] board) throws IOException {
+        // Generate the CSV contents
+        String fileContents = "";
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                String type; // The key which represents the organism
+                if (board[r][c] instanceof Fish) {
+                    type = "f";
+                } else if (board[r][c] instanceof Shark) {
+                    type = "s";
+                } else if (board[r][c] instanceof Algae) {
+                    type = "a";
+                } else { // All organism types should be covered above
+                    assert false : "Unsupported organism type: " + board[r][c].getClass();
+                }
+
+                fileContents += r + "\t" +
+                    c + "\t" +
+                    type + "\t" +
+                    board[r][c].age + "\t" +
+                    board[r][c].foodLevel + "\n"; // Add the row
+            }
+        }
+
+        // Write to the file
+        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        bw.write(fileContents, 0, fileContents.size());
     }
 }
