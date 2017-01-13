@@ -1,9 +1,9 @@
-package Organisms;
+package organisms;
 
 /**
  * Created by Varun on 2017-01-09.
  */
-public class Fish extends Organism {
+public class Algae extends Organism {
 
     @Override
     public void reproduce() {

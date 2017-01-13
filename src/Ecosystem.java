@@ -1,4 +1,4 @@
-import Organisms.Organism;
+import organisms.Organism;
 
 /**
  * Created by Varun on 2017-01-10.
