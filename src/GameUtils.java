@@ -60,14 +60,14 @@ public final class GameUtils {
                 int r = Integer.parseInt(table[i][0]);
                 int c = Integer.parseInt(table[i][1]);
                 int age = Integer.parseInt(table[i][3]);
-                int hunger = Integer.parseInt(table[i][4]);
+                int foodLevel = Integer.parseInt(table[i][4]);
 
                 if (table[i][2].equals("f")) {
-                    board[r][c] = new Fish(age, hunger);
+                    board[r][c] = new Fish(age, foodLevel);
                 } else if (table[i][2].equals("s")) {
-                    board[r][c] = new Shark(age, hunger);
+                    board[r][c] = new Shark(age, foodLevel);
                 } else if (table[i][3].equals("a")) {
-                    board[r][c] = new Algae(age, hunger);
+                    board[r][c] = new Algae(age, 0); //Algae good level is always 0
                 }
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 continue; // If a row is invalid, ignore it and move to the next one

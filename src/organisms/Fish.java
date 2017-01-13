@@ -12,6 +12,13 @@ public class Fish extends Organism {
         foodValue = 5;
     }
 
+    public Fish(int age, int foodLevel) {
+        super(age, foodLevel);
+
+        lifeSpan = 500;
+        foodValue = 5;
+    }
+
     @Override
     public void eat(Organism prey) {
         if(foodValue < FOOD_LIMIT){ //Check if the organism is full

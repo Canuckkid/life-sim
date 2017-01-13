@@ -9,7 +9,14 @@ public class Algae extends Organism {
         super();
 
         lifeSpan = 100;
-        foodLevel = 0; //Algae cannot eat
+        foodLevel = 0; //Algae cannot eat so must override the value in superclass
+        foodValue = 2;
+    }
+
+    public Algae(int age, int foodLevel) {
+        super(age, foodLevel);
+
+        lifeSpan = 100;
         foodValue = 2;
     }
 

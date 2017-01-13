@@ -12,6 +12,13 @@ public class Shark extends Organism {
         foodValue = 0;
     }
 
+    public Shark(int age, int foodLevel) {
+        super(age, foodLevel);
+
+        lifeSpan = 1000;
+        foodValue = 0;
+    }
+
     /**
      * Checks to see whether the Shark is able to eat the prey.
      * @param prey Organism that the Shark wants to eat.

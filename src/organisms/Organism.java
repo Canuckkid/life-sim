@@ -19,6 +19,11 @@ public abstract class Organism{
         foodLevel = 10;
     }
 
+    public Organism(int age, int foodLevel){
+        this.age = age;
+        this.foodLevel = foodLevel;
+        isAlive = true;
+    }
     /**
      * Checks is organism is fertile. organisms are fertile when they are in the second half of their lives
      * @return true if fertile; false if not.
