@@ -1,5 +1,8 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -29,7 +32,7 @@ public final class GameUtils {
      * @throws FileNotFoundException if the file passed doesn't exist
      * @see docs/file_format.md contains the CSV specification
      */
-    public Organism[][] loadPattern(File f) throws FileNotFoundException {
+    public static Organism[][] loadPattern(File f) throws FileNotFoundException {
         assert f.isFile() : f;
 
         // Read all the lines from the file
@@ -93,7 +96,7 @@ public final class GameUtils {
         String fileContents = "";
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[0].length; c++) {
-                String type; // The key which represents the organism
+                String type = ""; // The key which represents the organism
                 if (board[r][c] instanceof Fish) {
                     type = "f";
                 } else if (board[r][c] instanceof Shark) {
@@ -114,6 +117,6 @@ public final class GameUtils {
 
         // Write to the file
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-        bw.write(fileContents, 0, fileContents.size());
+        bw.write(fileContents, 0, fileContents.length());
     }
 }

@@ -6,10 +6,10 @@ package organisms;
 public abstract class Organism{
 
     boolean isAlive; //Living status of organism
-    int age;
+    public int age;
     int lifeSpan; //Ticks not years
     int foodValue; //The value a predator receives when it eats an organism
-    int foodLevel; //The food in the
+    public int foodLevel; //The food in the
 
     final int FOOD_LIMIT = 25;
 
