@@ -58,7 +58,7 @@ public final class GameUtils {
         }
 
         // Create and fill the new organism array
-        Organism[][] board = new Organism[maxR][maxC];
+        Organism[][] board = new Organism[maxR+1][maxC+1];
         for (int i = 0; i < table.length; i++) {
             try {
                 int r = Integer.parseInt(table[i][0]);
@@ -70,8 +70,8 @@ public final class GameUtils {
                     board[r][c] = new Fish(age, foodLevel);
                 } else if (table[i][2].equals("s")) {
                     board[r][c] = new Shark(age, foodLevel);
-                } else if (table[i][3].equals("a")) {
-                    board[r][c] = new Algae(age, 0); //Algae good level is always 0
+                } else if (table[i][2].equals("a")) {
+                    board[r][c] = new Algae(age, 0); //Algae food level is always 0
                 }
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 continue; // If a row is invalid, ignore it and move to the next one
@@ -97,7 +97,9 @@ public final class GameUtils {
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[0].length; c++) {
                 String type = ""; // The key which represents the organism
-                if (board[r][c] instanceof Fish) {
+                if (board[r][c] == null) {
+                    continue;
+                } else if (board[r][c] instanceof Fish) {
                     type = "f";
                 } else if (board[r][c] instanceof Shark) {
                     type = "s";
@@ -118,5 +120,6 @@ public final class GameUtils {
         // Write to the file
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
         bw.write(fileContents, 0, fileContents.length());
+        bw.close();
     }
 }
