@@ -1,11 +1,12 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import organisms.*;
 
 /**
@@ -19,7 +20,6 @@ public final class GameUtils {
 
     private GameUtils(){}
 
-    public static Ecosystem loadFromFile(){return null;}
     public static void loadMusic(){}
     public static void loadFonts(){}
 
@@ -30,17 +30,22 @@ public final class GameUtils {
      * and be a file.
      * @return the organism array represented by the CSV file
      * @throws FileNotFoundException if the file passed doesn't exist
+     * @throws IOException if somethign goes wrong while reading from the file
      * @see docs/file_format.md contains the CSV specification
      */
-    public static Organism[][] loadPattern(File f) throws FileNotFoundException {
+    public static Organism[][] loadPattern(File f) throws FileNotFoundException, IOException {
         assert f.isFile() : f;
 
         // Read all the lines from the file
-        Scanner s = new Scanner(f);
+        BufferedReader br = new BufferedReader(new FileReader(f));
         List<String> lines = new ArrayList<String>();
-        while (s.hasNextLine()) {
-            lines.add(s.nextLine());
+
+        String nextLine = br.readLine();
+        while (nextLine != null) { // BufferedReaders emit null when they're out of input
+            lines.add(nextLine);
+            nextLine = br.readLine();
         }
+        br.close();
 
         // Convert the list of lines to an array
         String[][] table = new String[lines.size()][5];
