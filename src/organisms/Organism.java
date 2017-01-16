@@ -33,7 +33,7 @@ public abstract class Organism{
     }
 
     abstract void eat(Organism prey);
-    abstract void move();
+    public abstract int[] move(Organism[][] neighbours);
 
     /**
      * Checks if organism's age is within the life span. Updates the isAlive boolean.

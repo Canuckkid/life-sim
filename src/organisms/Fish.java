@@ -31,7 +31,40 @@ public class Fish extends Organism {
     }
 
     @Override
-    void move() {
+    public int[] move(Organism[][] neighbours) {
+        int dr = 0, dc = 0; // Displacement in the row and column direction
 
+        // Check for predators
+        int predDr = 0;
+        int predDc = 0;
+        for (int r = 0; r < neighbours.length; r++) {
+            for (int c = 0; c < neighbours[r].length; c++) {
+                if (neighbours[r][c] instanceof Shark) {
+                    if (r == 0) {
+                        predDr += 1;
+                    } else if (r == 1) {
+                        predDr += 2;
+                    } else if (r == 3) {
+                        predDr -= 2;
+                    } else if (r == 4) {
+                        predDr -= 1;
+                    }
+
+                    if (c == 0) {
+                        predDc += 1;
+                    } else if (c == 1) {
+                        predDc += 2;
+                    } else if (c == 3) {
+                        predDc -= 2;
+                    } else if (c == 4) {
+                        predDc -= 1;
+                    }
+                }
+            }
+        }
+
+        dr = predDr;
+        dc = predDc;
+        return new int[] {dr, dc};
     }
 }

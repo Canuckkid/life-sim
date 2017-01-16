@@ -26,7 +26,7 @@ public class Algae extends Organism {
     }
 
     @Override
-    void move() {
-
+    public int[] move(Organism[][] neighbours) {
+        return new int[] {0, 0};
     }
 }
