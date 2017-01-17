@@ -32,33 +32,66 @@ public class Fish extends Organism {
 
     @Override
     public int[] move(Organism[][] neighbours) {
+        // Sanity checks: the neighbours must be 5x5
+        assert neighbours.length == 5;
+        assert neighbours[0].length == 5;
+
         int dr = 0, dc = 0; // Displacement in the row and column direction
 
         // Check for predators
-        int predDr = 0;
-        int predDc = 0;
+        ArrayList<Integer> predR = new ArrayList<Integer>();
+        ArrayList<Integer> predC = new ArrayList<Integer>();
         for (int r = 0; r < neighbours.length; r++) {
             for (int c = 0; c < neighbours[r].length; c++) {
                 if (neighbours[r][c] instanceof Shark) {
                     if (r == 0) {
-                        predDr += 1;
+                        predR.add(1);
                     } else if (r == 1) {
-                        predDr += 2;
+                        predR.add(2);
+                    } else if (r == 2) {
+                        predR.add(2);
                     } else if (r == 3) {
-                        predDr -= 2;
+                        predR.add(-2);
                     } else if (r == 4) {
-                        predDr -= 1;
+                        predR.add(-1);
                     }
 
                     if (c == 0) {
-                        predDc += 1;
+                        predC.add(1);
                     } else if (c == 1) {
-                        predDc += 2;
+                        predC.add(2);
+                    } else if (c == 2) {
+                        predC.add(2);
                     } else if (c == 3) {
-                        predDc -= 2;
+                        predC.add(-2);
                     } else if (c == 4) {
-                        predDc -= 1;
+                        predC.add(-1);
                     }
+                }
+            }
+        }
+        assert predR.size() == predC.size(); // Each predator has a row and a column
+
+        // Find the average predator move value
+        int sumR = 0;
+        for (int r : predR) {
+            sumR += r;
+        }
+        int predDr = sumR / predR.size();
+
+        int sumC = 0;
+        for (int c : predC) {
+            sumC += c;
+        }
+        int predDc = sumC / predC.size();
+
+        // Check for food
+        int foodDr = 0;
+        int foodDc = 0;
+        for (int r = 0; r < neighbours.length; r++) {
+            for (int c = 0; c < neighbours[r].length; c++) {
+                if (neighbours[r][c] instanceof Algae) {
+
                 }
             }
         }

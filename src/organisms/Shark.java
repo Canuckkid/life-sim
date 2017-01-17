@@ -35,6 +35,43 @@ public class Shark extends Organism {
 
     @Override
     public int[] move(Organism[][] neighbours) {
-        return new int[] {0, 0};
+        // Sanity checks: the neighbours must be a 5x5 array
+        assert neighbours.length == 5;
+        assert neighbours[0].length == 5;
+
+        int dr = 0, dc = 0; // Displacement in the row and column direction
+
+        // Check for food
+        ArrayList<Integer> foodR = new ArrayList<Integer>();
+        ArrayList<Integer> foodC = new ArrayList<Integer>();
+        for (int r = 0; r < neighbours.length; r++) {
+            for (int c = 0; c < neighbours[r].length; c++) {
+                if (neighbours[r][c] instanceof Fish) {
+                    foodR.add(r-2);
+                    foodC.add(c-2);
+                }
+            }
+        }
+        assert foodR.size() == foodC.size(); // Each food has a row and a column
+
+        // Find the average food move value
+        if (foodR.size() != 0) {
+            int sumR = 0;
+            for (int r : foodR) {
+                sumR += r;
+            }
+            int foodDr = sumR / foodR.size();
+
+            int sumC = 0;
+            for (int c : foodC) {
+                sumC += c;
+            }
+            int foodDc = sumC / foodC.size();
+
+            dr = foodDr;
+            dc = foodDc;
+        }
+
+        return new int[] {dr, dc};
     }
 }
