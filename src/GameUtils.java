@@ -18,6 +18,8 @@ public final class GameUtils {
     private static final String DIR_MUSIC = "";
     private static final String DIR_FONT = "";
 
+    public static final File PATH_EQUIL = new File("");
+
     private GameUtils(){}
 
     public static void loadMusic(){}

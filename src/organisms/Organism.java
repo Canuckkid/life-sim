@@ -9,7 +9,7 @@ public abstract class Organism{
     public int age;
     int lifeSpan; //Ticks not years
     int foodValue; //The value a predator receives when it eats an organism
-    public int foodLevel; //The food in the
+    public int foodLevel; //The food in the organism
 
     final int FOOD_LIMIT = 25;
 
@@ -51,5 +51,14 @@ public abstract class Organism{
 
     public int getFoodValue() {
         return foodValue;
+    }
+
+    /**
+     * Increments the age of the organism by one. Checks to see if the Organism has died of old age using {@link #isAlive}
+     */
+    public void nextYear(){
+        age++;
+
+        isAlive();
     }
 }
