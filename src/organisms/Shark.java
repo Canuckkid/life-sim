@@ -58,17 +58,17 @@ public class Shark extends Organism {
 
         // Find the average food move value
         if (foodR.size() != 0) {
-            int sumR = 0;
+            float sumR = 0;
             for (int r : foodR) {
                 sumR += r;
             }
-            int foodDr = sumR / foodR.size();
+            int foodDr = Math.round(sumR / foodR.size());
 
-            int sumC = 0;
+            float sumC = 0;
             for (int c : foodC) {
                 sumC += c;
             }
-            int foodDc = sumC / foodC.size();
+            int foodDc = Math.round(sumC / foodC.size());
 
             dr = foodDr;
             dc = foodDc;

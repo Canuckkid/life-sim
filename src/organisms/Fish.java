@@ -75,17 +75,17 @@ public class Fish extends Organism {
         assert predR.size() == predC.size(); // Each predator has a row and a column
 
         // Find the average predator move value
-        int sumR = 0;
+        float sumR = 0;
         for (int r : predR) {
             sumR += r;
         }
-        int predDr = sumR / predR.size();
+        int predDr = Math.round(sumR / predR.size());
 
-        int sumC = 0;
+        float sumC = 0;
         for (int c : predC) {
             sumC += c;
         }
-        int predDc = sumC / predC.size();
+        int predDc = Math.round(sumC / predC.size());
 
         // Check for food
         int foodDr = 0;
