@@ -75,31 +75,68 @@ public class Fish extends Organism {
         assert predR.size() == predC.size(); // Each predator has a row and a column
 
         // Find the average predator move value
-        float sumR = 0;
-        for (int r : predR) {
-            sumR += r;
-        }
-        int predDr = Math.round(sumR / predR.size());
+        int predDr = 0, predDc = 0;
+        if (predR.size() != 0) {
+            float sumR = 0;
+            for (int r : predR) {
+                sumR += r;
+            }
+            predDr = Math.round(sumR / predR.size());
 
-        float sumC = 0;
-        for (int c : predC) {
-            sumC += c;
+            float sumC = 0;
+            for (int c : predC) {
+                sumC += c;
+            }
+            predDc = Math.round(sumC / predC.size());
         }
-        int predDc = Math.round(sumC / predC.size());
 
         // Check for food
-        int foodDr = 0;
-        int foodDc = 0;
+        ArrayList<Integer> foodR = new ArrayList<Integer>();
+        ArrayList<Integer> foodC = new ArrayList<Integer>();
         for (int r = 0; r < neighbours.length; r++) {
             for (int c = 0; c < neighbours[r].length; c++) {
-                if (neighbours[r][c] instanceof Algae) {
-
+                if (neighbours[r][c] instanceof Fish) {
+                    foodR.add(r-2);
+                    foodC.add(c-2);
                 }
             }
         }
+        assert foodR.size() == foodC.size(); // Each food has a row and a column
 
-        dr = predDr;
-        dc = predDc;
+        // Find the average food move value
+        int foodDr = 0, foodDc = 0;
+        if (foodR.size() != 0) {
+            float sumR = 0;
+            for (int r : foodR) {
+                sumR += r;
+            }
+            foodDr = Math.round(sumR / foodR.size());
+
+            float sumC = 0;
+            for (int c : foodC) {
+                sumC += c;
+            }
+            foodDc = Math.round(sumC / foodC.size());
+        }
+
+        dr = Math.round((2*predDr + foodDr) / 3.0f);
+        dc = Math.round((2*predDc + foodDc) / 3.0f);
+
+        // Don't move onto a space unless it's empty or occupied by prey
+        if (!(neighbours[2+dr][2+dc] == null || neighbours[2+dr][2+dc] instanceof Algae)) {
+            if (dr == -2) {
+                dr = -1;
+            } else if (dr == -1) {
+                dr = -2;
+            } else if (dr == 0) {
+                dr = 1;
+            } else if (dr == 1) {
+                dr = 2;
+            } else if (dr == 2) {
+                dr = 1;
+            }
+        }
+
         return new int[] {dr, dc};
     }
 }

@@ -74,6 +74,21 @@ public class Shark extends Organism {
             dc = foodDc;
         }
 
+        // Don't move onto a space unless it's empty or occupied by prey
+        if (!(neighbours[2+dr][2+dc] == null || neighbours[2+dr][2+dc] instanceof Fish)) {
+            if (dr == -2) {
+                dr = -1;
+            } else if (dr == -1) {
+                dr = -2;
+            } else if (dr == 0) {
+                dr = 1;
+            } else if (dr == 1) {
+                dr = 2;
+            } else if (dr == 2) {
+                dr = 1;
+            }
+        }
+
         return new int[] {dr, dc};
     }
 }
