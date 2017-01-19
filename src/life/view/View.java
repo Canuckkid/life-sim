@@ -1,4 +1,4 @@
-package view;
+package life.view;
 
 import java.awt.event.MouseWheelEvent;
 import javax.swing.*;

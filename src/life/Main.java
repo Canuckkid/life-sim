@@ -1,3 +1,5 @@
+package life;
+
 public class Main {
     Game game;
 

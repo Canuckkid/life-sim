@@ -2,7 +2,7 @@
 
 ## **Part 1: Description of Problem and Needs Assessment**
 ### Project Background
-Simulate the natural interaction between marine organisms. The project will also allow for the inlfuence of human actions and natural disasters among other events on the ecosystem. 
+Simulate the natural interaction between marine life.organisms. The project will also allow for the inlfuence of human actions and natural disasters among other events on the ecosystem. 
 
 ### Assessment of Needs
 **Stakeholders**
@@ -16,9 +16,9 @@ Simulate the natural interaction between marine organisms. The project will also
 Create an interactive Java game that simulates a simplification of a marine ecosystem to educate users in a fun way about marine life, as well as the impacts of human actions. 
 
 ### Features to be developed
-- Mouse interactive GUI panel displaying organisms and interactions
-- Implementation of cellular automaton rules displaying interactions between organisms
-- Mulitple types of organisms 
+- Mouse interactive GUI panel displaying life.organisms and interactions
+- Implementation of cellular automaton rules displaying interactions between life.organisms
+- Mulitple types of life.organisms 
 - Locally saved and loadable patterns for equilibrium, extinction, erattic behaviour, etc.
 - Variable simulation speed 
 - User triggered events (eg. algal blooms, natural disasters) --> Will also randomly occur 
@@ -28,8 +28,8 @@ Create an interactive Java game that simulates a simplification of a marine ecos
 - Network connectivity for local and/or remote multiplayer game
 - Changing of environmental factors (eg. water temperature, pH, dissolved oxygen)
 - Users allowed to tweak game rules to see different possibilites
-- Graphs displaying population levels of the various organisms 
-- Using sprites to visualize the organisms
+- Graphs displaying population levels of the various life.organisms 
+- Using sprites to visualize the life.organisms
 
 ### Features that won't be developed
 - 3D Graphics 

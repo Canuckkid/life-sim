@@ -1,4 +1,4 @@
-package view;
+package life.view;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -193,7 +193,7 @@ public class GameBoard extends JFrame {
         gbc_btnStats.gridy = 23;
         contentPane.add(btnStats, gbc_btnStats);
 
-        JButton btnNewButton_1 = new JButton("Join Game");
+        JButton btnNewButton_1 = new JButton("Join life.Game");
         GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
         gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
         gbc_btnNewButton_1.gridx = 37;

@@ -1,3 +1,5 @@
+package life;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,7 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import organisms.*;
+import life.organisms.Algae;
+import life.organisms.Fish;
+import life.organisms.Organism;
+import life.organisms.Shark;
 
 /**
  * Created by Varun on 2017-01-09.

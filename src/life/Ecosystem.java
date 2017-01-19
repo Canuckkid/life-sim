@@ -1,24 +1,36 @@
-import java.util.ArrayList;
+package life;
+
 import java.util.Random;
-import organisms.Organism;
+import life.organisms.Algae;
+import life.organisms.Fish;
+import life.organisms.Organism;
+import life.organisms.Shark;
 
 /**
  * Created by Varun on 2017-01-10.
  *
- * Class for an ecosystem. Contains a 2D array of organisms
+ * Class for an ecosystem. Contains a 2D array of life.organisms
  */
 public class Ecosystem {
     private Organism[][] ecosystem;
 
     private final int MAX_SIZE = 100;
 
+    private Random mRandom = new Random();
+
     public Ecosystem(){
         ecosystem = new Organism[MAX_SIZE][MAX_SIZE];
+
+        for (int col = 0; col < ecosystem.length; col++){
+            for (int row = 0; row < ecosystem[col].length; row++) {
+                ecosystem[col][row] = getRandomOrganism();
+            }
+        }
     }
 
     /**
-     * Creates an ecosystem from an existing 2D array of organisms. Mainly used when loading from a file.
-     * @param ecosystem 2D array of organisms in an existing configuration.
+     * Creates an ecosystem from an existing 2D array of life.organisms. Mainly used when loading from a file.
+     * @param ecosystem 2D array of life.organisms in an existing configuration.
      */
     public Ecosystem(Organism[][] ecosystem){
         this.ecosystem = ecosystem;
@@ -29,7 +41,7 @@ public class Ecosystem {
 
         for (int col = 0; col < ecosystem.length; col++){
             for (int row = 0; row < ecosystem[col].length; row++){
-                Organism[][] subset = subset(col, row); //Get the organisms surroundings
+                Organism[][] subset = subset(col, row); //Get the life.organisms surroundings
 
                 int[] coords = ecosystem[col][row].move(subset); //Let the organism move
 
@@ -90,11 +102,59 @@ public class Ecosystem {
         return subset;
     }
 
-    private static class Events{
-        public static void algalBloom(){}
-        public static void garbagePatch(){}
-        public static void invasiveSpecies(){}
-        public static void oilSpill(){}
+    public void algalBloom(int startx, int starty, int endx, int endy) {
+        final int PROBABILITY = 50; //50% of wipeout
+
+        for(int col = startx; col <= endx; col++){
+            for(int row = starty; row <= endy; row++) {
+                if(mRandom.nextInt(100) > PROBABILITY){ //50% of wipeout
+                    if (!(ecosystem[col][row] instanceof Algae)){ //Algal blooms dont wipeout algae
+                        ecosystem[col][row] = new Algae(); //Replace with algae
+                    }
+                }
+
+            }
+        }
     }
 
+    public void garbagePatch(int startx, int starty, int endx, int endy){
+        final int PROBABILITY = 60; //60% of wipeout
+
+        for(int col = startx; col <= endx; col++){
+            for(int row = starty; row <= endy; row++) {
+                if(mRandom.nextInt(100) > PROBABILITY){ //60% of wipeout
+                    ecosystem[col][row] = null;
+                }
+            }
+        }
+    }
+
+    //todo: Add invasive species to life.organisms and implement this method
+    //public void invasiveSpecies(int startx, int starty, int endx, int endy){}
+
+    public void oilSpill(int startx, int starty, int endx, int endy){
+        final int PROBABILITY = 75; //75% of wipeout
+
+        for(int col = startx; col <= endx; col++){
+            for(int row = starty; row <= endy; row++) {
+                if(mRandom.nextInt(100) > PROBABILITY){ //75% of wipeout
+                    ecosystem[col][row] = null;
+                }
+            }
+        }
+    }
+
+    private Organism getRandomOrganism(){
+        int num = mRandom.nextInt(10);
+
+        if(num <= 2){
+            return new Algae();
+        } else if (num == 3 && num == 4) {
+            return new Fish();
+        } else if (num == 5) {
+            return new Shark();
+        } else {
+            return null;
+        }
+    }
 }

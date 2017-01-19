@@ -1,11 +1,11 @@
 ## Tasks to be completed
-- [ ] Game events
+- [ ] life.Game events
 - [ ] Web Socket
 - [ ] Action Events
 - [ ] Custom GUI Components
 
 # Mechanics ideas
-- organisms have goals:
+- life.organisms have goals:
   - Stay alive
   - Reproduce
 - Actions can facilitate these goals

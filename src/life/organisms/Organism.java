@@ -1,4 +1,4 @@
-package organisms;
+package life.organisms;
 
 /**
  * Created by Varun on 2017-01-09.
@@ -25,7 +25,7 @@ public abstract class Organism{
         isAlive = true;
     }
     /**
-     * Checks is organism is fertile. organisms are fertile when they are in the second half of their lives
+     * Checks is organism is fertile. life.organisms are fertile when they are in the second half of their lives
      * @return true if fertile; false if not.
      */
     public boolean isFertile(){

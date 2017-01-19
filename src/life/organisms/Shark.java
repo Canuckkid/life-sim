@@ -1,4 +1,4 @@
-package organisms;
+package life.organisms;
 
 import java.util.ArrayList;
 

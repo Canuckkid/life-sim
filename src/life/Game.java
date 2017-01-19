@@ -1,4 +1,6 @@
-import view.View;
+package life;
+
+import life.view.View;
 import javax.swing.*;
 
 /**

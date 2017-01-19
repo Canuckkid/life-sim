@@ -1,4 +1,4 @@
-package organisms;
+package life.organisms;
 
 /**
  * Created by Varun on 2017-01-09.
