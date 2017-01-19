@@ -20,7 +20,7 @@ public final class GameUtils {
 
     public static final File PATH_EQUIL = new File("");
 
-    private GameUtils(){}
+    private GameUtils(){} //private constructor mocks a static class
 
     public static void loadMusic(){}
     public static void loadFonts(){}
@@ -128,5 +128,21 @@ public final class GameUtils {
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
         bw.write(fileContents, 0, fileContents.length());
         bw.close();
+    }
+
+    /**
+     * Wraps an index into the length specified. Numbers outside the lower bound wrap around the higher bound and vice versa.
+     * @param index Index to wrap.
+     * @param length Length (upper bound) to wrap the index around. Assumes lower bound is 0.
+     * @return Wrapped index
+     */
+    public static int wrapIndex(int index, int length){
+        if(index < 0){
+            return length + index;
+        } else if(index >= length){
+            return length - index;
+        } else{
+            return index;
+        }
     }
 }

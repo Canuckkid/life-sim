@@ -29,16 +29,30 @@ public class Ecosystem {
 
         for (int col = 0; col < ecosystem.length; col++){
             for (int row = 0; row < ecosystem[col].length; row++){
+                Organism[][] subset = subset(col, row); //Get the organisms surroundings
 
-                Organism[][] subset = copy(col, row);
+                int[] coords = ecosystem[col][row].move(subset); //Let the organism move
 
+                //Wrap the new coordinates into the length
+                int wrappedX = GameUtils.wrapIndex(coords[0], ecosystem.length);
+                int wrappedY = GameUtils.wrapIndex(coords[1], ecosystem[wrappedX].length);
+
+                //Set the organism to its new position
+                nextGen[wrappedX][wrappedY] = ecosystem[col][row];
+                ecosystem[col][row] = null;
             }
         }
 
         ecosystem = nextGen;
     }
 
-    private Organism[][] copy(int col, int row){
+    /**
+     * Creates a 5x5 array which is a subset of {@link #ecosystem}, centered at the desired coordinates.
+     * @param col Column of the desired centre
+     * @param row Row of the desired centre
+     * @return Subset 5x5 array of {@link Organism} type.
+     */
+    private Organism[][] subset(int row, int col){
         Organism[][] subset = new Organism[5][5]; //Create a subset array of the desired size
 
         int x = 0; //Subset x-index

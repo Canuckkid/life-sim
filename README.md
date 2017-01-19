@@ -1,3 +1,9 @@
+## Tasks to be completed
+- [ ] Game events
+- [ ] Web Socket
+- [ ] Action Events
+- [ ] Custom GUI Components
+
 # Mechanics ideas
 - organisms have goals:
   - Stay alive
