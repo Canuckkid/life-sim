@@ -1,3 +1,5 @@
+package view;
+
 import java.awt.event.MouseWheelEvent;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;

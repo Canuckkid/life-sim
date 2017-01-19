@@ -1,3 +1,4 @@
+import view.View;
 import javax.swing.*;
 
 /**
