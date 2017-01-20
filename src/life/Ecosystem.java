@@ -36,6 +36,13 @@ public class Ecosystem {
         this.ecosystem = ecosystem;
     }
 
+    /**
+     * @return the grid of organisms that make of the Ecosystem
+     */
+    public Organism[][] getOrganisms() {
+        return this.ecosystem;
+    }
+
     public void createNextGeneration(){
         Organism[][] nextGen = ecosystem; //Temporarily hold the current ecosystem
 
