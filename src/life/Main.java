@@ -10,8 +10,9 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    GameBoard frame = new GameBoard();
-                    frame.setVisible(true);
+                    //GameBoard frame = new GameBoard();
+                    new Game();
+                    //frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

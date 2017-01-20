@@ -2,13 +2,11 @@ package life.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import life.Ecosystem;
-import life.Game;
 import life.organisms.*;
 
 /**
@@ -16,17 +14,19 @@ import life.organisms.*;
  */
 public class View {
     public MouseAdapter mMouseAdapter;
-    private DrawArea mDrawArea;
+    private DrawArea drawArea;
 
-    public View(){
-        mDrawArea = new DrawArea(new Ecosystem());
+    public View(Ecosystem e){
+        drawArea = new DrawArea(e);
     }
 
-    public DrawArea getmDrawArea() {
-        return mDrawArea;
+    public DrawArea getDrawArea() {
+        return drawArea;
     }
 
-    public void drawBoard(){}
+    public void updateEcosystem(Ecosystem e){
+        drawArea.updateEcosystem(e);
+    }
 
     private class DrawArea extends JPanel {
         private Ecosystem e;
@@ -35,8 +35,13 @@ public class View {
             this.e = e;
         }
 
+        public void updateEcosystem(Ecosystem e){
+            this.e = e;
+            this.repaint();
+        }
+
         @Override
-        public void paint(Graphics g) {
+        public void paintComponent(Graphics g) {
             int cellW = this.getWidth() / e.getOrganisms().length;
             int cellH = this.getHeight() / e.getOrganisms()[0].length;
 

@@ -1,7 +1,6 @@
 package life.view;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,30 +16,18 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import life.Ecosystem;
 
 public class GameBoard extends JFrame {
 
     private JPanel contentPane;
+    private View mView;
+    JButton btnPlaypause;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    GameBoard frame = new GameBoard();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
     /**
      * Create the frame.
      */
-    public GameBoard() {
+    public GameBoard(Ecosystem ecosystem) {
         super("Life is Strange");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1080, 720);
@@ -130,7 +117,9 @@ public class GameBoard extends JFrame {
         contentPane.add(restartButton, restartConstraints);
 
         //JPanel bigPanel = new JPanel();
-        JPanel bigPanel = new View().getmDrawArea();
+        mView = new View(ecosystem);
+
+        JPanel bigPanel = mView.getDrawArea();
         bigPanel.setBackground(Color.WHITE);
         GridBagConstraints bigPanelConstraints = new GridBagConstraints();
         bigPanelConstraints.gridheight = 15;
@@ -180,7 +169,7 @@ public class GameBoard extends JFrame {
         legendConstraints.gridy = 22;
         contentPane.add(legendLabel, legendConstraints);
 
-        JButton btnPlaypause = new JButton("Play/Pause");
+        btnPlaypause = new JButton("Play/Pause");
         GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
         gbc_btnPlaypause.insets = new Insets(0, 0, 5, 5);
         gbc_btnPlaypause.gridx = 37;
@@ -200,6 +189,14 @@ public class GameBoard extends JFrame {
         gbc_btnNewButton_1.gridx = 37;
         gbc_btnNewButton_1.gridy = 24;
         contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
+    }
+
+    public void setPlayListener(ActionListener a){
+        btnPlaypause.addActionListener(a);
+    }
+
+    public void updateEcosystem(Ecosystem e){
+        mView.updateEcosystem(e);
     }
 
 }

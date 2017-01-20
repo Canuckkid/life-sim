@@ -14,7 +14,7 @@ import life.organisms.Shark;
 public class Ecosystem {
     private Organism[][] ecosystem;
 
-    private final int MAX_SIZE = 100;
+    private final int MAX_SIZE = 4;
 
     private Random mRandom = new Random();
 
@@ -43,6 +43,9 @@ public class Ecosystem {
         return this.ecosystem;
     }
 
+    /**
+     * Creates the next generation of the ecosystem by allowing the organisms to move and eat.
+     */
     public void createNextGeneration(){
         Organism[][] nextGen = ecosystem; //Temporarily hold the current ecosystem
 
@@ -50,15 +53,20 @@ public class Ecosystem {
             for (int row = 0; row < ecosystem[col].length; row++){
                 Organism[][] subset = subset(col, row); //Get the life.organisms surroundings
 
-                int[] coords = ecosystem[col][row].move(subset); //Let the organism move
+                if(ecosystem[col][row] != null) {
+                    int[] coords = ecosystem[col][row].move(subset); //Let the organism move
 
-                //Wrap the new coordinates into the length
-                int wrappedX = GameUtils.wrapIndex(coords[0], ecosystem.length);
-                int wrappedY = GameUtils.wrapIndex(coords[1], ecosystem[wrappedX].length);
+                    //Wrap the new coordinates into the length
+                    int dc = coords[0] + col;
+                    int dr = coords[1] + row;
 
-                //Set the organism to its new position
-                nextGen[wrappedX][wrappedY] = ecosystem[col][row];
-                ecosystem[col][row] = null;
+                    int wrappedX = GameUtils.wrapIndex(dc, ecosystem.length);
+                    int wrappedY = GameUtils.wrapIndex(dr, ecosystem[wrappedX].length);
+
+                    //Set the organism to its new position
+                    nextGen[wrappedX][wrappedY] = ecosystem[col][row];
+                    ecosystem[col][row] = null;
+                }
             }
         }
 
@@ -152,7 +160,7 @@ public class Ecosystem {
     }
 
     private Organism getRandomOrganism(){
-        int num = mRandom.nextInt(10);
+        int num = mRandom.nextInt(20);
 
         if(num <= 2){
             return new Algae();
