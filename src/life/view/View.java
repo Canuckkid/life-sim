@@ -8,6 +8,7 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import life.Ecosystem;
+import life.Game;
 import life.organisms.*;
 
 /**
@@ -15,7 +16,15 @@ import life.organisms.*;
  */
 public class View {
     public MouseAdapter mMouseAdapter;
-    public DrawArea mDrawArea;
+    private DrawArea mDrawArea;
+
+    public View(){
+        mDrawArea = new DrawArea(new Ecosystem());
+    }
+
+    public DrawArea getmDrawArea() {
+        return mDrawArea;
+    }
 
     public void drawBoard(){}
 

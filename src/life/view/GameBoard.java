@@ -129,7 +129,8 @@ public class GameBoard extends JFrame {
         restartConstraints.gridy = 4;
         contentPane.add(restartButton, restartConstraints);
 
-        JPanel bigPanel = new JPanel();
+        //JPanel bigPanel = new JPanel();
+        JPanel bigPanel = new View().getmDrawArea();
         bigPanel.setBackground(Color.WHITE);
         GridBagConstraints bigPanelConstraints = new GridBagConstraints();
         bigPanelConstraints.gridheight = 15;
