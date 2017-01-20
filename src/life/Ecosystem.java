@@ -156,7 +156,7 @@ public class Ecosystem {
 
         if(num <= 2){
             return new Algae();
-        } else if (num == 3 && num == 4) {
+        } else if (num == 3 || num == 4) {
             return new Fish();
         } else if (num == 5) {
             return new Shark();

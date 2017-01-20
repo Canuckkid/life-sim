@@ -41,20 +41,11 @@ public class View {
             int cellH = this.getHeight() / e.getOrganisms()[0].length;
 
             // Draw cell borders
-            g.setColor(Color.GRAY);
-            for (int r = 1; r < e.getOrganisms().length; r++) {
-                g.drawLine(0, r * cellH, this.getWidth(), r * cellH);
-            }
-            for (int c = 1; c < e.getOrganisms()[0].length; c++) {
-                g.drawLine(c * cellW, 0, c * cellW, this.getHeight());
-            }
             for (int r = 0; r < e.getOrganisms().length; r++) {
                 for (int c = 0; c < e.getOrganisms()[r].length; c++) {
                     if (e.getOrganisms()[r][c] == null) { // Don't fill empty spaces
-                        continue;
-                    }
-
-                    if (e.getOrganisms()[r][c] instanceof Fish) {
+                        g.setColor(Color.WHITE);
+                    } else if (e.getOrganisms()[r][c] instanceof Fish) {
                         g.setColor(Color.BLUE);
                     } else if (e.getOrganisms()[r][c] instanceof Algae) {
                         g.setColor(Color.GREEN);
