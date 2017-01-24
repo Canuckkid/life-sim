@@ -145,7 +145,7 @@ public final class GameUtils {
         if(index < 0){
             return length + index;
         } else if(index >= length){
-            return length - index;
+            return index - length;
         } else{
             return index;
         }

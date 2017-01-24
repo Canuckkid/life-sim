@@ -27,8 +27,8 @@ public class  Game {
 
     private void startSim(){
         timer = new Timer(1000, timerListener);
-        //timer.start();
-        mGameBoard.setPlayListener(timerListener);
+        timer.start();
+        //mGameBoard.setPlayListener(timerListener);
     }
 
     private ActionListener timerListener = new ActionListener() {

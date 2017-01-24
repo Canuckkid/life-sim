@@ -14,7 +14,7 @@ import life.organisms.Shark;
 public class Ecosystem {
     private Organism[][] ecosystem;
 
-    private final int MAX_SIZE = 4;
+    private final int MAX_SIZE = 100;
 
     private Random mRandom = new Random();
 
@@ -62,6 +62,8 @@ public class Ecosystem {
 
                     int wrappedX = GameUtils.wrapIndex(dc, ecosystem.length);
                     int wrappedY = GameUtils.wrapIndex(dr, ecosystem[wrappedX].length);
+
+                    //System.out.println(wrappedX + " || " + wrappedY + " || " + dc + " || " + dr + " || " + col + " || " + row);
 
                     //Set the organism to its new position
                     nextGen[wrappedX][wrappedY] = ecosystem[col][row];
