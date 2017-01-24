@@ -32,6 +32,15 @@ public class Fish extends Organism {
 
     }
 
+    /**
+     * Find a new position for the Organism.
+     *
+     * Fish move towards algae (which they can eat) and away from
+     * sharks (which eat them).
+     *
+     * @param neighbours the cells neighbouring the Fish
+     * @return displacement in the row and column direction
+     */
     @Override
     public int[] move(Organism[][] neighbours) {
         // Sanity checks: the neighbours must be 5x5

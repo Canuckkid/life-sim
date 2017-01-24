@@ -144,10 +144,8 @@ public final class GameUtils {
     public static int wrapIndex(int index, int length){
         if(index < 0){
             return length + index;
-        } else if(index >= length){
-            return length - index;
-        } else{
-            return index;
+        } else {
+            return index % length;
         }
     }
 }

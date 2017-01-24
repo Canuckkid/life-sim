@@ -14,7 +14,7 @@ import life.organisms.Shark;
 public class Ecosystem {
     private Organism[][] ecosystem;
 
-    private final int MAX_SIZE = 4;
+    private final int MAX_SIZE = 20;
 
     private Random mRandom = new Random();
 
@@ -47,7 +47,8 @@ public class Ecosystem {
      * Creates the next generation of the ecosystem by allowing the organisms to move and eat.
      */
     public void createNextGeneration(){
-        Organism[][] nextGen = ecosystem; //Temporarily hold the current ecosystem
+        // Create an empty board of the same size
+        Organism[][] nextGen = new Organism[ecosystem.length][ecosystem[0].length];
 
         for (int col = 0; col < ecosystem.length; col++){
             for (int row = 0; row < ecosystem[col].length; row++){
@@ -62,10 +63,11 @@ public class Ecosystem {
 
                     int wrappedX = GameUtils.wrapIndex(dc, ecosystem.length);
                     int wrappedY = GameUtils.wrapIndex(dr, ecosystem[wrappedX].length);
+                    assert 0 <= wrappedX && wrappedX < ecosystem.length : wrappedY;
+                    assert 0 <= wrappedY && wrappedY < ecosystem[wrappedX].length : wrappedY;
 
                     //Set the organism to its new position
                     nextGen[wrappedX][wrappedY] = ecosystem[col][row];
-                    ecosystem[col][row] = null;
                 }
             }
         }
