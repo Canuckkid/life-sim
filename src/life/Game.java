@@ -12,25 +12,6 @@ import javax.swing.*;
 public class  Game {
     Ecosystem mEcosystem;
     private Timer timer;
-    GameBoard mGameBoard;
-
-    public Game(){
-        mEcosystem = new Ecosystem();
-        mGameBoard = new GameBoard(mEcosystem);
-        mGameBoard.setVisible(true);
-
-        startSim();
-    }
-
-    public void endGame(){}
-
-
-    private void startSim(){
-        timer = new Timer(1000, timerListener);
-        //timer.start();
-        mGameBoard.setPlayListener(timerListener);
-    }
-
     private ActionListener timerListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -38,6 +19,46 @@ public class  Game {
             mGameBoard.updateEcosystem(mEcosystem);
         }
     };
+    GameBoard mGameBoard;
+
+    public Game(){
+        mEcosystem = new Ecosystem();
+        mGameBoard = new GameBoard(mEcosystem);
+        mGameBoard.setVisible(true);
+
+        timer = new Timer(1000, timerListener);
+        mGameBoard.setPlayListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (e.getActionCommand().equals("Play")) {
+                        startSim();
+                        ((JButton) e.getSource()).setText("Pause");
+                    } else if (e.getActionCommand().equals("Pause")) {
+                        stopSim();
+                        ((JButton) e.getSource()).setText("Play");
+                    } else {
+                        assert false : e.getActionCommand(); // Unrecognized command
+                    }
+                }
+            });
+    }
+
+    public void endGame(){}
+
+
+    /**
+     * Unpause the simulation
+     */
+    public void startSim(){
+        timer.start();
+    }
+
+    /**
+     * Pause the simulation
+     */
+    public void stopSim() {
+        timer.stop();
+    }
 
     private void nextRound(){}
 

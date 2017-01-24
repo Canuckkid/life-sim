@@ -169,7 +169,7 @@ public class GameBoard extends JFrame {
         legendConstraints.gridy = 22;
         contentPane.add(legendLabel, legendConstraints);
 
-        btnPlaypause = new JButton("Play/Pause");
+        btnPlaypause = new JButton("Play");
         GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
         gbc_btnPlaypause.insets = new Insets(0, 0, 5, 5);
         gbc_btnPlaypause.gridx = 37;
