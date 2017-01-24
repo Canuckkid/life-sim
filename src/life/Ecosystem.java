@@ -15,6 +15,7 @@ public class Ecosystem {
     private Organism[][] ecosystem;
 
     private final int MAX_SIZE = 100;
+    private final int SPAWN_RATE = 25; //1/4 chance of spawning
 
     private Random mRandom = new Random();
 
@@ -49,6 +50,7 @@ public class Ecosystem {
     public void createNextGeneration(){
         Organism[][] nextGen = ecosystem; //Temporarily hold the current ecosystem
 
+        //Movement
         for (int col = 0; col < ecosystem.length; col++){
             for (int row = 0; row < ecosystem[col].length; row++){
                 Organism[][] subset = subset(col, row); //Get the life.organisms surroundings
@@ -68,6 +70,18 @@ public class Ecosystem {
                     //Set the organism to its new position
                     nextGen[wrappedX][wrappedY] = ecosystem[col][row];
                     ecosystem[col][row] = null;
+                }
+            }
+        }
+
+        //Spawning
+        for (int col = 0; col < nextGen.length; col++){
+            for (int row = 0; row < nextGen[col].length; row++) {
+                //Check if spawning
+                if(nextGen[col][row] == null){ //No Organism exists
+                    if(mRandom.nextInt(100) < SPAWN_RATE){ //CHeck probability of spawning
+                        nextGen[col][row] = getRandomOrganism(); //Spawn a new organism
+                    }
                 }
             }
         }
