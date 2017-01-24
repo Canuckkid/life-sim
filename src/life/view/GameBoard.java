@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.event.ChangeListener;
 import life.Ecosystem;
 
 public class GameBoard extends JFrame {
@@ -23,6 +24,10 @@ public class GameBoard extends JFrame {
     private JPanel contentPane;
     private View mView;
     JButton btnPlaypause;
+    JComboBox organismSelector;
+    JButton restartButton;
+    JSlider speedSlider;
+    JButton quitButton;
 
     /**
      * Create the frame.
@@ -72,14 +77,14 @@ public class GameBoard extends JFrame {
         logoConstraint.gridy = 2;
         contentPane.add(logoLabel, logoConstraint);
 
-        JComboBox comboBox = new JComboBox(new String[]{"Predator", "Prey", "Algae"});
+        organismSelector = new JComboBox(new String[]{"Predator", "Prey", "Algae"});
         GridBagConstraints gbc_comboBox = new GridBagConstraints();
         gbc_comboBox.gridwidth = 4;
         gbc_comboBox.insets = new Insets(0, 0, 5, 5);
         gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBox.gridx = 34;
         gbc_comboBox.gridy = 2;
-        contentPane.add(comboBox, gbc_comboBox);
+        contentPane.add(organismSelector, gbc_comboBox);
         GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
         gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
         gbc_btnNewButton.gridx = 4;
@@ -102,14 +107,14 @@ public class GameBoard extends JFrame {
         rButtonConstraints.gridy = 4;
         contentPane.add(rightButton, rButtonConstraints);
 
-        JButton quitButton = new JButton("quit");
+        quitButton = new JButton("quit");
         GridBagConstraints quitConstraints = new GridBagConstraints();
         quitConstraints.insets = new Insets(0, 0, 5, 5);
         quitConstraints.gridx = 34;
         quitConstraints.gridy = 4;
         contentPane.add(quitButton, quitConstraints);
 
-        JButton restartButton = new JButton("restart");
+        restartButton = new JButton("Restart");
         GridBagConstraints restartConstraints = new GridBagConstraints();
         restartConstraints.insets = new Insets(0, 0, 5, 5);
         restartConstraints.gridx = 37;
@@ -141,15 +146,15 @@ public class GameBoard extends JFrame {
         biteSizedConstraints.gridwidth = 7;
         contentPane.add(lilPanel, biteSizedConstraints);
 
-        JSlider slider = new JSlider();
-        slider.setOrientation(SwingConstants.VERTICAL);
-        slider.setMinimumSize(new Dimension(16, 400));
+        speedSlider = new JSlider();
+        speedSlider.setOrientation(SwingConstants.VERTICAL);
+        speedSlider.setMinimumSize(new Dimension(16, 400));
         GridBagConstraints sliderConstraints = new GridBagConstraints();
         sliderConstraints.gridheight = 14;
         sliderConstraints.insets = new Insets(0, 0, 5, 5);
         sliderConstraints.gridx = 6;
         sliderConstraints.gridy = 7;
-        contentPane.add(slider, sliderConstraints);
+        contentPane.add(speedSlider, sliderConstraints);
 
         JLabel vertLabel = new JLabel("VERTICAL TEXT");
         GridBagConstraints vertConstraints = new GridBagConstraints();
@@ -169,7 +174,7 @@ public class GameBoard extends JFrame {
         legendConstraints.gridy = 22;
         contentPane.add(legendLabel, legendConstraints);
 
-        btnPlaypause = new JButton("Play");
+        btnPlaypause = new JButton("Play/Pause");
         GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
         gbc_btnPlaypause.insets = new Insets(0, 0, 5, 5);
         gbc_btnPlaypause.gridx = 37;
@@ -191,8 +196,24 @@ public class GameBoard extends JFrame {
         contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
     }
 
-    public void setPlayListener(ActionListener a){
+    public void setPlayPauseListener(ActionListener a){
         btnPlaypause.addActionListener(a);
+    }
+
+    public void setOrganismSelectorListener(ActionListener a){
+        organismSelector.addActionListener(a);
+    }
+
+    public void setRestartButtonListener(ActionListener a){
+        restartButton.addActionListener(a);
+    }
+
+    public void setSpeedSliderListener(ChangeListener c){
+        speedSlider.addChangeListener(c);
+    }
+
+    public void setQuitButtonListener(ActionListener a){
+        quitButton.addActionListener(a);
     }
 
     public void updateEcosystem(Ecosystem e){
