@@ -73,9 +73,12 @@ public class  Game {
             try {
                 JSlider slider = (JSlider) e.getSource();
                 int value = slider.getValue();
+                /*
+                System.out.println(value);
 
                 //50 on slider maps to 200millis
                 value *= 4; //Map to milli value
+                */
 
                 timer.setDelay(value);
                 timer.restart();

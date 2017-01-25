@@ -57,19 +57,26 @@ public class Ecosystem {
                 Organism[][] subset = subset(col, row); //Get the life.organisms surroundings
 
                 if(ecosystem[col][row] != null) {
-                    int[] coords = ecosystem[col][row].move(subset); //Let the organism move
+                    ecosystem[col][row].nextYear(); //Age organism
 
-                    //Wrap the new coordinates into the length
-                    int dc = coords[0] + col;
-                    int dr = coords[1] + row;
+                    if(ecosystem[col][row].isAlive()) { //Check if died of old age
 
-                    int wrappedX = GameUtils.wrapIndex(dc, ecosystem.length);
-                    int wrappedY = GameUtils.wrapIndex(dr, ecosystem[wrappedX].length);
-                    assert 0 <= wrappedX && wrappedX < ecosystem.length : wrappedY;
-                    assert 0 <= wrappedY && wrappedY < ecosystem[wrappedX].length : wrappedY;
+                        int[] coords = ecosystem[col][row].move(subset); //Let the organism move
 
-                    //Set the organism to its new position
-                    nextGen[wrappedX][wrappedY] = ecosystem[col][row];
+                        //Wrap the new coordinates into the length
+                        int dc = coords[0] + col;
+                        int dr = coords[1] + row;
+
+                        int wrappedX = GameUtils.wrapIndex(dc, ecosystem.length);
+                        int wrappedY = GameUtils.wrapIndex(dr, ecosystem[wrappedX].length);
+                        assert 0 <= wrappedX && wrappedX < ecosystem.length : wrappedY;
+                        assert 0 <= wrappedY && wrappedY < ecosystem[wrappedX].length : wrappedY;
+
+                        //Set the organism to its new position
+                        nextGen[wrappedX][wrappedY] = ecosystem[col][row];
+                    } else{
+                        nextGen[col][row] = null; //Organism is dead
+                    }
                 }
             }
         }
