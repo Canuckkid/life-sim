@@ -1,21 +1,22 @@
 package life.view;
 
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 import javax.swing.event.ChangeListener;
 import life.Ecosystem;
 
@@ -27,6 +28,7 @@ public class GameBoard extends JFrame {
     JComboBox organismSelector;
     JButton restartButton;
     JSlider speedSlider;
+    JSlider scaleSlider;
     JButton quitButton;
 
     /**
@@ -121,10 +123,9 @@ public class GameBoard extends JFrame {
         restartConstraints.gridy = 4;
         contentPane.add(restartButton, restartConstraints);
 
-        //JPanel bigPanel = new JPanel();
         mView = new View(ecosystem);
 
-        JPanel bigPanel = mView.getDrawArea();
+        JScrollPane bigPanel = new JScrollPane(mView.getDrawArea());
         bigPanel.setBackground(Color.WHITE);
         GridBagConstraints bigPanelConstraints = new GridBagConstraints();
         bigPanelConstraints.gridheight = 15;
@@ -163,6 +164,16 @@ public class GameBoard extends JFrame {
         vertConstraints.gridx = 4;
         vertConstraints.gridy = 10;
         contentPane.add(vertLabel, vertConstraints);
+
+        scaleSlider = new JSlider();
+        scaleSlider.setOrientation(SwingConstants.VERTICAL);
+        speedSlider.setMinimumSize(new Dimension(16, 440));
+        GridBagConstraints scaleConstraints = new GridBagConstraints();
+        scaleConstraints.gridheight = 14;
+        scaleConstraints.insets = new Insets(0, 0, 5, 5);
+        scaleConstraints.gridx = 7;
+        scaleConstraints.gridy = 7;
+        contentPane.add(scaleSlider, scaleConstraints);
 
         JLabel legendLabel = new JLabel("Legend says lul");
         legendLabel.setBackground(Color.DARK_GRAY);

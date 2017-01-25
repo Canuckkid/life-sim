@@ -1,7 +1,9 @@
 package life.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import javax.swing.*;
@@ -35,6 +37,10 @@ public class View {
 
         public DrawArea(Ecosystem e) {
             this.e = e.getOrganisms();
+            this.cellW = 5;
+            this.cellH = 5;
+
+            this.setPreferredSize(new Dimension(this.e.length * cellW, this.e[0].length * cellH));
         }
 
         public void updateEcosystem(Ecosystem e){
@@ -44,9 +50,6 @@ public class View {
 
         @Override
         public void paintComponent(Graphics g) {
-            int cellW = this.getWidth() / e.length;
-            int cellH = this.getHeight() / e[0].length;
-
             // Draw cell contents
             for (int r = 0; r < e.length; r++) {
                 for (int c = 0; c < e[r].length; c++) {
@@ -78,7 +81,6 @@ public class View {
     private class MouseAdapter extends MouseInputAdapter{
         int startX;
         int startY;
-
 
         @Override
         public void mouseClicked(MouseEvent e) {
