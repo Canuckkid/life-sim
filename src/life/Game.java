@@ -12,7 +12,7 @@ import javax.swing.*;
 /**
  * Created by Varun on 2017-01-09.
  */
-public class  Game {
+public class Game {
     private Ecosystem mEcosystem;
     private final Ecosystem initialEcosystem;
     private Timer timer;

@@ -30,54 +30,6 @@ public class View {
         drawArea.updateEcosystem(e);
     }
 
-    private class DrawArea extends JPanel {
-        private Organism[][] e;
-        private int cellW;
-        private int cellH;
-
-        public DrawArea(Ecosystem e) {
-            this.e = e.getOrganisms();
-            this.cellW = 5;
-            this.cellH = 5;
-
-            this.setPreferredSize(new Dimension(this.e.length * cellW, this.e[0].length * cellH));
-        }
-
-        public void updateEcosystem(Ecosystem e){
-            this.e = e.getOrganisms();
-            this.repaint();
-        }
-
-        @Override
-        public void paintComponent(Graphics g) {
-            // Draw cell contents
-            for (int r = 0; r < e.length; r++) {
-                for (int c = 0; c < e[r].length; c++) {
-                    if (e[r][c] == null) { // Don't fill empty spaces
-                        g.setColor(Color.WHITE);
-                    } else if (e[r][c] instanceof Fish) {
-                        g.setColor(Color.BLUE);
-                    } else if (e[r][c] instanceof Algae) {
-                        g.setColor(Color.GREEN);
-                    } else if (e[r][c] instanceof Shark) {
-                        g.setColor(Color.BLACK);
-                    }
-
-                    g.fillRect(c * cellW, r * cellH, (c+1) * cellW, (r+1) * cellH); // Draw the organism
-                }
-            }
-
-            // Draw cell borders
-            g.setColor(Color.GRAY);
-            for (int r = 1; r < e.length; r++) {
-                g.drawLine(0, r * cellH, this.getWidth(), r * cellH);
-            }
-            for (int c = 1; c < e[0].length; c++) {
-                g.drawLine(c * cellW, 0, c * cellW, this.getHeight());
-            }
-        }
-    }
-
     private class MouseAdapter extends MouseInputAdapter{
         int startX;
         int startY;

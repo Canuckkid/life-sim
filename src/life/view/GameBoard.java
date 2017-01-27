@@ -1,6 +1,5 @@
 package life.view;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -23,7 +22,7 @@ import life.Ecosystem;
 public class GameBoard extends JFrame {
 
     private JPanel contentPane;
-    private View mView;
+    private DrawArea cellGrid;
     JButton btnPlaypause;
     JComboBox organismSelector;
     JButton restartButton;
@@ -36,6 +35,9 @@ public class GameBoard extends JFrame {
      */
     public GameBoard(Ecosystem ecosystem) {
         super("Life is Strange");
+
+        this.cellGrid = new DrawArea(ecosystem);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1080, 720);
         contentPane = new JPanel();
@@ -123,9 +125,7 @@ public class GameBoard extends JFrame {
         restartConstraints.gridy = 4;
         contentPane.add(restartButton, restartConstraints);
 
-        mView = new View(ecosystem);
-
-        JScrollPane bigPanel = new JScrollPane(mView.getDrawArea());
+        JScrollPane bigPanel = new JScrollPane(cellGrid);
         bigPanel.setBackground(Color.WHITE);
         GridBagConstraints bigPanelConstraints = new GridBagConstraints();
         bigPanelConstraints.gridheight = 15;
@@ -228,7 +228,10 @@ public class GameBoard extends JFrame {
     }
 
     public void updateEcosystem(Ecosystem e){
-        mView.updateEcosystem(e);
+        cellGrid.updateEcosystem(e);
     }
 
+    public DrawArea getDrawArea() {
+        return cellGrid;
+    }
 }
