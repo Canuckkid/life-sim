@@ -72,6 +72,7 @@ public class DrawArea extends JPanel {
             throw new IllegalArgumentException("Size must be less than 50, given " + size);
         } else {
             this.cellSize = size;
+            this.setPreferredSize(new Dimension(this.e.length * cellSize, this.e[0].length * cellSize));
         }
     }
 }
