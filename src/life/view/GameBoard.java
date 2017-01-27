@@ -23,7 +23,7 @@ import life.Ecosystem;
 public class GameBoard extends JFrame {
 
     private JPanel contentPane;
-    private DrawArea cellGrid;
+    public final DrawArea cellGrid;
     JButton btnPlaypause;
     JComboBox organismSelector;
     JButton restartButton;
@@ -164,15 +164,15 @@ public class GameBoard extends JFrame {
         sliderConstraints.gridy = 7;
         contentPane.add(speedSlider, sliderConstraints);
 
-        /*scaleSlider = new JSlider();
+        scaleSlider = new JSlider(5, 50, 5);
         scaleSlider.setOrientation(SwingConstants.VERTICAL);
-        speedSlider.setMinimumSize(new Dimension(16, 440));
+        scaleSlider.setMinimumSize(new Dimension(16, 400));
         GridBagConstraints scaleConstraints = new GridBagConstraints();
         scaleConstraints.gridheight = 14;
         scaleConstraints.insets = new Insets(0, 0, 5, 5);
-        scaleConstraints.gridx = 7;
+        scaleConstraints.gridx = 9;
         scaleConstraints.gridy = 7;
-        contentPane.add(scaleSlider, scaleConstraints); */
+        contentPane.add(scaleSlider, scaleConstraints);
 
         JLabel legendLabel = new JLabel("Legend says lul");
         legendLabel.setBackground(Color.DARK_GRAY);
@@ -226,11 +226,11 @@ public class GameBoard extends JFrame {
         quitButton.addActionListener(a);
     }
 
-    public void updateEcosystem(Ecosystem e){
-        cellGrid.updateEcosystem(e);
+    public void setScaleSliderListener(ChangeListener c) {
+        scaleSlider.addChangeListener(c);
     }
 
-    public DrawArea getDrawArea() {
-        return cellGrid;
+    public void updateEcosystem(Ecosystem e){
+        cellGrid.updateEcosystem(e);
     }
 }

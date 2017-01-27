@@ -57,4 +57,21 @@ public class DrawArea extends JPanel {
             g.drawLine(c * cellSize, 0, c * cellSize, this.getHeight());
         }
     }
+
+    /**
+     * Set the size of each cell. Cells are square, with sizes in
+     * the range [5, 50].
+     *
+     * @param size the new size of the cell, in pixels
+     * @throws IllegalArgumentException if the size isn't in the valid range
+     */
+    public void setSize(int size) {
+        if (size < 5) {
+            throw new IllegalArgumentException("Size must be at least 5, given " + size);
+        } else if (size > 50) {
+            throw new IllegalArgumentException("Size must be less than 50, given " + size);
+        } else {
+            this.cellSize = size;
+        }
+    }
 }

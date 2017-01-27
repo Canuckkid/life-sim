@@ -3,11 +3,12 @@ package life;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import life.view.DrawArea;
 import life.view.GameBoard;
 import life.view.View;
-import javax.swing.*;
 
 /**
  * Created by Varun on 2017-01-09.
@@ -33,6 +34,7 @@ public class Game {
         mGameBoard.setPlayPauseListener(playListener);
         mGameBoard.setSpeedSliderListener(speedChanger);
         mGameBoard.setRestartButtonListener(restart);
+        mGameBoard.setScaleSliderListener(scaleChanger);
 
         timer = new Timer(1000, timerListener);
         timer.start();
@@ -84,6 +86,14 @@ public class Game {
                 timer.restart();
             } catch (Exception ex){
             }
+        }
+    };
+
+    private ChangeListener scaleChanger = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            int val = ((JSlider) e.getSource()).getValue();
+            mGameBoard.cellGrid.setSize(val);
         }
     };
 
