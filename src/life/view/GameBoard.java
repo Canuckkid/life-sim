@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -147,9 +148,15 @@ public class GameBoard extends JFrame {
         biteSizedConstraints.gridwidth = 7;
         contentPane.add(lilPanel, biteSizedConstraints);
 
-        speedSlider = new JSlider();
+        speedSlider = new JSlider(30, 1000, 200);
         speedSlider.setOrientation(SwingConstants.VERTICAL);
-        speedSlider.setMinimumSize(new Dimension(16, 400));
+        speedSlider.setMinimumSize(new Dimension(60, 400));
+        Hashtable labelTable = new Hashtable();
+        labelTable.put(1000, new JLabel("Slow"));
+        labelTable.put(30, new JLabel("Fast"));
+        speedSlider.setLabelTable(labelTable);
+        speedSlider.setPaintLabels(true);
+
         GridBagConstraints sliderConstraints = new GridBagConstraints();
         sliderConstraints.gridheight = 14;
         sliderConstraints.insets = new Insets(0, 0, 5, 5);
@@ -157,15 +164,7 @@ public class GameBoard extends JFrame {
         sliderConstraints.gridy = 7;
         contentPane.add(speedSlider, sliderConstraints);
 
-        JLabel vertLabel = new JLabel("VERTICAL TEXT");
-        GridBagConstraints vertConstraints = new GridBagConstraints();
-        vertConstraints.gridheight = 12;
-        vertConstraints.insets = new Insets(0, 0, 5, 5);
-        vertConstraints.gridx = 4;
-        vertConstraints.gridy = 10;
-        contentPane.add(vertLabel, vertConstraints);
-
-        scaleSlider = new JSlider();
+        /*scaleSlider = new JSlider();
         scaleSlider.setOrientation(SwingConstants.VERTICAL);
         speedSlider.setMinimumSize(new Dimension(16, 440));
         GridBagConstraints scaleConstraints = new GridBagConstraints();
@@ -173,7 +172,7 @@ public class GameBoard extends JFrame {
         scaleConstraints.insets = new Insets(0, 0, 5, 5);
         scaleConstraints.gridx = 7;
         scaleConstraints.gridy = 7;
-        contentPane.add(scaleSlider, scaleConstraints);
+        contentPane.add(scaleSlider, scaleConstraints); */
 
         JLabel legendLabel = new JLabel("Legend says lul");
         legendLabel.setBackground(Color.DARK_GRAY);
@@ -185,7 +184,7 @@ public class GameBoard extends JFrame {
         legendConstraints.gridy = 22;
         contentPane.add(legendLabel, legendConstraints);
 
-        btnPlaypause = new JButton("Play/Pause");
+        btnPlaypause = new JButton("Pause");
         GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
         gbc_btnPlaypause.insets = new Insets(0, 0, 5, 5);
         gbc_btnPlaypause.gridx = 37;
