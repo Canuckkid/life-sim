@@ -196,4 +196,13 @@ public class Ecosystem {
             return null;
         }
     }
+
+    /**
+     * Removes an organism given coordinates.
+     * @param col Column of organism to kill.
+     * @param row Row of organism to kill.
+     */
+    public void removeOrganism(int col, int row){
+        ecosystem[col][row] = null;
+    }
 }

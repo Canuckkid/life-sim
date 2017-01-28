@@ -3,7 +3,11 @@ package life.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
 import life.organisms.*;
 import life.Ecosystem;
 
@@ -17,11 +21,19 @@ public class DrawArea extends JPanel {
     private Organism[][] e;
     private int cellSize;
 
+    private Rectangle selectedHighlight;
+    private Point startPoint;
+    private boolean isSelected;
+
     public DrawArea(Ecosystem e) {
         this.e = e.getOrganisms();
         this.cellSize = 5;
 
         this.setPreferredSize(new Dimension(this.e.length * cellSize, this.e[0].length * cellSize));
+
+        selectedHighlight = new Rectangle();
+        isSelected = false;
+
     }
 
     public void updateEcosystem(Ecosystem e){
@@ -56,6 +68,13 @@ public class DrawArea extends JPanel {
         for (int c = 1; c < e[0].length; c++) {
             g.drawLine(c * cellSize, 0, c * cellSize, this.getHeight());
         }
+
+        if (isSelected) {
+            g.setColor(new Color(127, 127, 255));
+            g.drawRect(selectedHighlight.x, selectedHighlight.y, selectedHighlight.width, selectedHighlight.height);
+            g.setColor(new Color(127, 127, 255, 64));
+            g.fillRect(selectedHighlight.x, selectedHighlight.y, selectedHighlight.width, selectedHighlight.height);
+        }
     }
 
     /**
@@ -74,5 +93,36 @@ public class DrawArea extends JPanel {
             this.cellSize = size;
             this.setPreferredSize(new Dimension(this.e.length * cellSize, this.e[0].length * cellSize));
         }
+    }
+
+    public void startHighlight(Point p) {
+        this.startPoint = p;
+        selectedHighlight = new Rectangle(this.startPoint);
+        isSelected = true;
+        repaint();
+    }
+
+    public void updateHighlight(Point p) {
+        selectedHighlight = new Rectangle(this.startPoint);
+        selectedHighlight.add(p);
+        repaint();
+    }
+
+    public void removeHighlight() {
+        selectedHighlight = new Rectangle();
+        isSelected = false;
+        repaint();
+    }
+
+    public Rectangle getSelectedHighlight() {
+        return selectedHighlight;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public int getCellSize() {
+        return cellSize;
     }
 }

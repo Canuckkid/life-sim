@@ -3,12 +3,15 @@ package life;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.MouseInputAdapter;
+import life.organisms.Organism;
 import life.view.DrawArea;
 import life.view.GameBoard;
-import life.view.View;
+import life.view.OrganismSelector;
 
 /**
  * Created by Varun on 2017-01-09.
@@ -27,6 +30,7 @@ public class Game {
 
         mGameBoard = new GameBoard(mEcosystem);
         mGameBoard.setVisible(true);
+        mGameBoard.addMouseListener(new GameMouseAdapter());
 
         startSim();
     }
@@ -95,7 +99,8 @@ public class Game {
         @Override
         public void stateChanged(ChangeEvent e) {
             int val = ((JSlider) e.getSource()).getValue();
-            mGameBoard.cellGrid.setSize(val);
+            mGameBoard.getDrawArea().setSize(val);
+            mGameBoard.getDrawArea().repaint();
         }
     };
 
@@ -108,6 +113,56 @@ public class Game {
             timer.start(); //Restart Timer
         }
     };
+
+    private ActionListener organismSelector = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    };
+
+    private class GameMouseAdapter extends MouseInputAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if(e.getSource() instanceof DrawArea){
+                if(SwingUtilities.isRightMouseButton(e)){ //If right click
+                    //Remove the organism
+                    System.out.println("Right Click");
+
+                    int row = e.getX() / mGameBoard.getDrawArea().getCellSize();
+                    int col = e.getY() / mGameBoard.getDrawArea().getCellSize();
+
+                    System.out.println(e.getX() + " || " + col + " || " + e.getY() + " || " + row);
+
+                    mEcosystem.removeOrganism(col, row);
+                } else {
+                    ((DrawArea) e.getSource()).removeHighlight();
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if(e.getSource() instanceof DrawArea){
+                ((DrawArea) e.getSource()).startHighlight(e.getPoint());
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            if(e.getSource() instanceof DrawArea) {
+                //((DrawArea) e.getSource()).updateHighlight(e.getPoint());
+                ((DrawArea) e.getSource()).removeHighlight();
+            }
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            if(e.getSource() instanceof DrawArea) {
+                ((DrawArea) e.getSource()).updateHighlight(e.getPoint());
+            }
+        }
+    }
 
 
     public static void main(String[] args) {

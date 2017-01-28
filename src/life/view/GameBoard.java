@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Hashtable;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,7 +24,7 @@ import life.Ecosystem;
 public class GameBoard extends JFrame {
 
     private JPanel contentPane;
-    public final DrawArea cellGrid;
+    private DrawArea cellGrid;
     JButton btnPlaypause;
     JComboBox organismSelector;
     JButton restartButton;
@@ -197,5 +198,15 @@ public class GameBoard extends JFrame {
 
     public void setNewOrganismListener(ActionListener l){
         mOrganismSelector.addImageListener(l);
+    }
+
+    @Override
+    public synchronized void addMouseListener(MouseListener l) {
+        contentPane.addMouseListener(l);
+        cellGrid.addMouseListener(l); //needed for drag and drop, highlighting
+    }
+
+    public DrawArea getDrawArea() {
+        return cellGrid;
     }
 }
