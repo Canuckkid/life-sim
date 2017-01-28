@@ -9,6 +9,7 @@ import life.organisms.Shark;
 /**
  * Created by Varun on 2017-01-10.
  *
+ * Contains simulation logic
  * Class for an ecosystem. Contains a 2D array of life.organisms
  */
 public class Ecosystem {

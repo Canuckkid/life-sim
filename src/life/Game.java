@@ -12,6 +12,8 @@ import life.view.View;
 
 /**
  * Created by Varun on 2017-01-09.
+ *
+ * UI Logic
  */
 public class Game {
     private Ecosystem mEcosystem;
