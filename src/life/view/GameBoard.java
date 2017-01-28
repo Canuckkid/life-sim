@@ -209,4 +209,8 @@ public class GameBoard extends JFrame {
     public DrawArea getDrawArea() {
         return cellGrid;
     }
+
+    public OrganismSelector getOrganismSelector() {
+        return mOrganismSelector;
+    }
 }

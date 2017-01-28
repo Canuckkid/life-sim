@@ -24,6 +24,9 @@ public class Game {
     private Timer timer;
     private GameBoard mGameBoard;
 
+    private boolean isCreateOrganism; //Whether or not to create a new orgnaism on click
+    private int organismType; //Magic number corresponding to type of organism to add
+
     public Game(){
         mEcosystem = new Ecosystem();
         initialEcosystem = mEcosystem;
@@ -41,9 +44,17 @@ public class Game {
         mGameBoard.setSpeedSliderListener(speedChanger);
         mGameBoard.setRestartButtonListener(restart);
         mGameBoard.setScaleSliderListener(scaleChanger);
+        mGameBoard.setNewOrganismListener(organismSelector);
 
         timer = new Timer(1000, timerListener);
-        timer.start();
+
+        //Noticed a slowdown when on the same thread
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                timer.start();
+            }
+        }).start();
     }
 
     private void nextRound(){}
@@ -81,12 +92,6 @@ public class Game {
             try {
                 JSlider slider = (JSlider) e.getSource();
                 int value = slider.getValue();
-                /*
-                System.out.println(value);
-
-                //50 on slider maps to 200millis
-                value *= 4; //Map to milli value
-                */
 
                 timer.setDelay(value);
                 timer.restart();
@@ -117,6 +122,8 @@ public class Game {
     private ActionListener organismSelector = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+            organismType = mGameBoard.getOrganismSelector().getCurrentOrganism();
+            isCreateOrganism = true;
 
         }
     };
@@ -127,14 +134,17 @@ public class Game {
             if(e.getSource() instanceof DrawArea){
                 if(SwingUtilities.isRightMouseButton(e)){ //If right click
                     //Remove the organism
-                    System.out.println("Right Click");
-
                     int row = e.getX() / mGameBoard.getDrawArea().getCellSize();
                     int col = e.getY() / mGameBoard.getDrawArea().getCellSize();
 
-                    System.out.println(e.getX() + " || " + col + " || " + e.getY() + " || " + row);
-
                     mEcosystem.removeOrganism(col, row);
+                } else if (isCreateOrganism){
+                    int row = e.getX() / mGameBoard.getDrawArea().getCellSize();
+                    int col = e.getY() / mGameBoard.getDrawArea().getCellSize();
+
+                    mEcosystem.addOrganism(organismType, col, row);
+
+                    isCreateOrganism = false;
                 } else {
                     ((DrawArea) e.getSource()).removeHighlight();
                 }
@@ -151,8 +161,9 @@ public class Game {
         @Override
         public void mouseReleased(MouseEvent e) {
             if(e.getSource() instanceof DrawArea) {
-                //((DrawArea) e.getSource()).updateHighlight(e.getPoint());
-                ((DrawArea) e.getSource()).removeHighlight();
+                ((DrawArea) e.getSource()).updateHighlight(e.getPoint());
+
+                //((DrawArea) e.getSource()).removeHighlight();
             }
         }
 

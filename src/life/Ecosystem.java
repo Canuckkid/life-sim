@@ -5,6 +5,7 @@ import life.organisms.Algae;
 import life.organisms.Fish;
 import life.organisms.Organism;
 import life.organisms.Shark;
+import life.view.OrganismSelector;
 
 /**
  * Created by Varun on 2017-01-10.
@@ -204,5 +205,33 @@ public class Ecosystem {
      */
     public void removeOrganism(int col, int row){
         ecosystem[col][row] = null;
+    }
+
+    /**
+     * Adds an organism to the ecosystem
+     * @param organismType Magic Constant from the OrganismSelector class
+     * @param col Column to add to
+     * @param row Row to add to
+     */
+    public void addOrganism(int organismType, int col, int row) {
+        //Illegal arg exception throwing
+        if(organismType != OrganismSelector.ORGANISM_ALGAE
+            && organismType != OrganismSelector.ORGANISM_FISH
+            && organismType != OrganismSelector.ORGANISM_SHARK){
+            throw new IllegalArgumentException("Invalid Organism Type: " + organismType + ". Must be a magic constant from OrganismSelector");
+        }
+
+        Organism organism = null;
+
+        if(organismType == OrganismSelector.ORGANISM_ALGAE){
+            organism = new Algae();
+        } else if(organismType == OrganismSelector.ORGANISM_FISH){
+            organism = new Fish();
+        } else {
+            organism = new Shark();
+        }
+
+        ecosystem[col][row] = organism;
+
     }
 }

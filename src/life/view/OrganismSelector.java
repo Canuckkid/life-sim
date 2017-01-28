@@ -1,5 +1,7 @@
 package life.view;
 
+import static sun.rmi.transport.TransportConstants.Magic;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
@@ -10,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,6 +27,11 @@ public class OrganismSelector extends JPanel {
     private JButton nextBtn;
     private JButton prevBtn;
     private int currentIndex = 0;
+
+    //Magic constants for the organism types
+    public static final int ORGANISM_SHARK = 0;
+    public static final int ORGANISM_FISH = 1;
+    public static final int ORGANISM_ALGAE = 2;
 
     private final InputStream[] IMAGE_SOURCES = {getClass().getResourceAsStream("images/shark.jpg"),
         getClass().getResourceAsStream("images/fish.jpg"),
@@ -115,10 +121,16 @@ public class OrganismSelector extends JPanel {
 
     /**
      * Gets the current organism being displayed in the imageBtn button
-     * @return Lowercase String of name of organism being displayed
+     * @return MagicInteger of name of organism being displayed
      */
-    public String getCurrentOrganism(){
-        return organismNames[currentIndex].toLowerCase();
+    public int getCurrentOrganism(){
+        if (currentIndex == 0) {
+            return ORGANISM_SHARK;
+        } else if (currentIndex == 1) {
+            return ORGANISM_FISH;
+        } else {
+            return ORGANISM_ALGAE;
+        }
     }
 
     /**
