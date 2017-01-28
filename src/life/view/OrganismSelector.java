@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -25,12 +27,14 @@ public class OrganismSelector extends JPanel {
     private JButton prevBtn;
     private int currentIndex = 0;
 
-    private final String[] IMAGE_PATHS = {"./src/images/shark.jpg", "./src/images/fish.jpg", "./src/images/algae.jpg"};
+    private final InputStream[] IMAGE_SOURCES = {getClass().getResourceAsStream("images/shark.jpg"),
+        getClass().getResourceAsStream("images/fish.jpg"),
+        getClass().getResourceAsStream("images/algae.jpg")};
 
     public OrganismSelector(){
         this.setPreferredSize(new Dimension(300, 300));
 
-        loadImages(); //Load the images from the directory
+        loadImages(); //Load the life.view.images from the directory
 
         prevBtn = new JButton("<-");
         //Add the previous button
@@ -48,7 +52,7 @@ public class OrganismSelector extends JPanel {
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(nextBtn, constraints);
 
-        //Add the main images
+        //Add the main life.view.images
         imageBtn = new JButton();
         imageBtn.setIcon(images[currentIndex]);
         imageBtn.createToolTip();
@@ -65,9 +69,10 @@ public class OrganismSelector extends JPanel {
     private void loadImages(){
         images = new ImageIcon[3];
 
-        for(int i = 0 ; i < IMAGE_PATHS.length; i ++){
+        for(int i = 0 ; i < IMAGE_SOURCES.length; i ++){
             try {
-                BufferedImage imgsrc = ImageIO.read(new File(IMAGE_PATHS[i]));
+                //BufferedImage imgsrc = ImageIO.read(new File(IMAGE_PATHS[i]));
+                BufferedImage imgsrc = ImageIO.read(IMAGE_SOURCES[i]);
                 images[i] = new ImageIcon(new ImageIcon(imgsrc).getImage().getScaledInstance(200, 100, Image.SCALE_DEFAULT));
             } catch (IOException e) {
                 //e.printStackTrace();
