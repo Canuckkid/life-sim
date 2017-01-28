@@ -30,6 +30,7 @@ public class GameBoard extends JFrame {
     JSlider speedSlider;
     JSlider scaleSlider;
     JButton quitButton;
+    OrganismSelector mOrganismSelector;
 
     /**
      * Create the frame.
@@ -54,25 +55,15 @@ public class GameBoard extends JFrame {
         for (int i=0; i<gbl_contentPane.rowHeights.length; i++) if (gbl_contentPane.rowHeights[i]==0) gbl_contentPane.rowHeights[i]=x;
         contentPane.setLayout(gbl_contentPane);
 
-        JLabel sharkButton = new JLabel("SHARK");
-        sharkButton.setToolTipText("Drag and Drop onto the Panel");
-        sharkButton.setHorizontalAlignment(SwingConstants.CENTER);
+        mOrganismSelector = new OrganismSelector();
         GridBagConstraints sharkConstraints = new GridBagConstraints();
         sharkConstraints.gridheight = 3;
         sharkConstraints.gridwidth = 9;
-        sharkConstraints.insets = new Insets(0, 0, 5, 5);
         sharkConstraints.gridx = 4;
         sharkConstraints.gridy = 1;
-        contentPane.add(sharkButton, sharkConstraints);
-
-        JButton btnNewButton = new JButton("<-");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            }
-        });
+        contentPane.add(mOrganismSelector, sharkConstraints);
 
         JLabel logoLabel = new JLabel("Life is normal");
-        logoLabel.setToolTipText("");
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints logoConstraint = new GridBagConstraints();
         logoConstraint.gridheight = 5;
@@ -81,36 +72,6 @@ public class GameBoard extends JFrame {
         logoConstraint.gridx = 13;
         logoConstraint.gridy = 2;
         contentPane.add(logoLabel, logoConstraint);
-
-        organismSelector = new JComboBox(new String[]{"Predator", "Prey", "Algae"});
-        GridBagConstraints gbc_comboBox = new GridBagConstraints();
-        gbc_comboBox.gridwidth = 4;
-        gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-        gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBox.gridx = 34;
-        gbc_comboBox.gridy = 2;
-        contentPane.add(organismSelector, gbc_comboBox);
-        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-        gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-        gbc_btnNewButton.gridx = 4;
-        gbc_btnNewButton.gridy = 4;
-        contentPane.add(btnNewButton, gbc_btnNewButton);
-
-        JLabel monkeyLabel = new JLabel("Monkey");
-        monkeyLabel.setToolTipText("Hover over shark for more advice");
-        GridBagConstraints monkeyConstraints = new GridBagConstraints();
-        monkeyConstraints.gridwidth = 2;
-        monkeyConstraints.insets = new Insets(0, 0, 5, 5);
-        monkeyConstraints.gridx = 8;
-        monkeyConstraints.gridy = 4;
-        contentPane.add(monkeyLabel, monkeyConstraints);
-
-        JButton rightButton = new JButton("->");
-        GridBagConstraints rButtonConstraints = new GridBagConstraints();
-        rButtonConstraints.insets = new Insets(0, 0, 5, 5);
-        rButtonConstraints.gridx = 12;
-        rButtonConstraints.gridy = 4;
-        contentPane.add(rightButton, rButtonConstraints);
 
         quitButton = new JButton("quit");
         GridBagConstraints quitConstraints = new GridBagConstraints();
@@ -232,5 +193,9 @@ public class GameBoard extends JFrame {
 
     public void updateEcosystem(Ecosystem e){
         cellGrid.updateEcosystem(e);
+    }
+
+    public void setNewOrganismListener(ActionListener l){
+        mOrganismSelector.addImageListener(l);
     }
 }
