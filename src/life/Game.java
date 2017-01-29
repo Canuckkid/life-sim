@@ -45,7 +45,7 @@ public class Game {
         mGameBoard.setNewOrganismListener(organismSelector);
         mGameBoard.setEventsListener(eventSelector);
 
-        timer = new Timer(1000, timerListener);
+        timer = new Timer(250, timerListener);
 
         //Noticed a slowdown when on the same thread
         new Thread(new Runnable() {
@@ -65,6 +65,11 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 mEcosystem.createNextGeneration();
                 mGameBoard.updateEcosystem(mEcosystem);
+
+                mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                    mEcosystem.getFishCount(),
+                    mEcosystem.getSharkCount(),
+                    mEcosystem.getGarbageCount());
             }
         };
 
@@ -112,6 +117,11 @@ public class Game {
                 mEcosystem = initialEcosystem; //Reset
                 mGameBoard.updateEcosystem(mEcosystem);
                 mGameBoard.getDrawArea().repaint();
+
+                mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                    mEcosystem.getFishCount(),
+                    mEcosystem.getSharkCount(),
+                    mEcosystem.getGarbageCount());
             }
         };
 
@@ -132,6 +142,11 @@ public class Game {
                     mGameBoard.setEventBtnsEnabled(false);
                     mGameBoard.getDrawArea().removeHighlight();
                     mGameBoard.getDrawArea().repaint();
+
+                    mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                        mEcosystem.getFishCount(),
+                        mEcosystem.getSharkCount(),
+                        mEcosystem.getGarbageCount());
 
                 }else { //Add single organisms
                     isCreateOrganism = true;
@@ -168,6 +183,11 @@ public class Game {
                     mGameBoard.setEventBtnsEnabled(false);
                     mGameBoard.getDrawArea().removeHighlight();
                     mGameBoard.getDrawArea().repaint();
+
+                    mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                        mEcosystem.getFishCount(),
+                        mEcosystem.getSharkCount(),
+                        mEcosystem.getGarbageCount());
                 }
             }
         };

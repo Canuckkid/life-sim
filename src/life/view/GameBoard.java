@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -33,11 +34,16 @@ import java.awt.image.BufferedImage;
 import java.io.File; 
 import java.awt.Rectangle;
 import life.ScreenImage;
+import life.organisms.Algae;
+import life.organisms.Fish;
+import life.organisms.Garbage;
+import life.organisms.Shark;
 
 public class GameBoard extends JFrame {
 
     private JPanel contentPane;
     private DrawArea cellGrid;
+    private Legend mLegend;
     JButton btnPlaypause;
     JButton restartButton;
     JSlider speedSlider;
@@ -129,7 +135,7 @@ public class GameBoard extends JFrame {
 
         contentPane.add(mEventsSelector, biteSizedConstraints);
 
-        speedSlider = new JSlider(30, 1000, 200);
+        speedSlider = new JSlider(30, 1000, 250);
         speedSlider.setOrientation(SwingConstants.VERTICAL);
         speedSlider.setMinimumSize(new Dimension(60, 400));
         Hashtable labelTable = new Hashtable();
@@ -158,15 +164,15 @@ public class GameBoard extends JFrame {
         scaleConstraints.gridy = 7;
         contentPane.add(scaleSlider, scaleConstraints);
 
-        JLabel legendLabel = new JLabel("Legend says lul");
-        legendLabel.setBackground(Color.DARK_GRAY);
+        mLegend = new Legend();
+        mLegend.setBackground(Color.WHITE);
         GridBagConstraints legendConstraints = new GridBagConstraints();
         legendConstraints.gridheight = 3;
         legendConstraints.gridwidth = 8;
         legendConstraints.insets = new Insets(0, 0, 5, 5);
-        legendConstraints.gridx = 11;
+        legendConstraints.gridx = 10;
         legendConstraints.gridy = 21;
-        contentPane.add(legendLabel, legendConstraints);
+        contentPane.add(mLegend, legendConstraints);
 
         btnPlaypause = new JButton("Pause");
         GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
@@ -174,13 +180,6 @@ public class GameBoard extends JFrame {
         gbc_btnPlaypause.gridx = 35;
         gbc_btnPlaypause.gridy = 23;
         contentPane.add(btnPlaypause, gbc_btnPlaypause);
-
-        JButton btnStats = new JButton("Stats");
-        GridBagConstraints gbc_btnStats = new GridBagConstraints();
-        gbc_btnStats.insets = new Insets(0, 0, 0, 0);
-        gbc_btnStats.gridx = 35;
-        gbc_btnStats.gridy = 24;
-        contentPane.add(btnStats, gbc_btnStats);
 
         JButton Screenshot = new JButton("Screenshot");
         GridBagConstraints gbc_Screenshot= new GridBagConstraints();
@@ -259,6 +258,10 @@ public class GameBoard extends JFrame {
         mEventsSelector.enableBtns(isEnabled);
     }
 
+    public void updateLegend(int algae, int fish, int shark, int garbage) {
+        mLegend.update(algae, fish, shark, garbage);
+    }
+
     /* Simple custom components */
     private class EventsSelector extends JPanel{
         JButton algae;
@@ -303,21 +306,52 @@ public class GameBoard extends JFrame {
 
     private class Legend extends JPanel{
 
-        private JLabel algae;
-        private JLabel fish;
-        private JLabel shark;
-        private JLabel garbage;
-
-        private final String algaeText = "";
-        private final String fishText = "";
-        private final String sharkText = "";
-        private final String garbageText = "";
+        private JLabel algaeCount;
+        private JLabel fishCount;
+        private JLabel sharkCount;
+        private JLabel garbageCount;
 
         public Legend(){
-            algae = new JLabel(algaeText);
-            fish = new JLabel(fishText);
-            shark = new JLabel(sharkText);
-            garbage = new JLabel(garbageText);
+            JLabel algae = new JLabel("Algae: ");
+            algae.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+            algae.setForeground(Algae.colour);
+
+            JLabel fish = new JLabel("Fish: ");
+            fish.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+            fish.setForeground(Fish.colour);
+
+            JLabel shark = new JLabel("Shark: ");
+            shark.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+            shark.setForeground(Shark.colour);
+
+            JLabel garbage = new JLabel("Garbage: ");
+            garbage.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+            garbage.setForeground(Garbage.colour);
+
+            algaeCount = new JLabel(String.valueOf(0));
+            fishCount = new JLabel(String.valueOf(0));
+            sharkCount = new JLabel(String.valueOf(0));
+            garbageCount = new JLabel(String.valueOf(0));
+
+            this.setLayout(new GridLayout(4, 2, 1, 1));
+
+            add(algae);
+            add(algaeCount);
+            add(fish);
+            add(fishCount);
+            add(shark);
+            add(sharkCount);
+            add(garbage);
+            add(garbageCount);
+
+            this.setPreferredSize(new Dimension(180, 150));
+        }
+
+        public void update(int algae, int fish, int shark, int garbage){
+            algaeCount.setText(String.valueOf(algae));
+            fishCount.setText(String.valueOf(fish));
+            sharkCount.setText(String.valueOf(shark));
+            garbageCount.setText(String.valueOf(garbage));
         }
     }
 }

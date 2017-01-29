@@ -41,6 +41,8 @@ import javax.swing.*;
  *  frame.pack();
  *  ScreenImage.createImage( someComponent );
  *
+ *  https://tips4java.wordpress.com/2008/10/13/screen-image/
+ *
  */
 public class ScreenImage
 {
