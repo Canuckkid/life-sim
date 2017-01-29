@@ -115,6 +115,7 @@ public class GameBoard extends JFrame {
         organismConstraints.gridwidth = 7;
         organismConstraints.gridx = 32;
         organismConstraints.gridy = 14;
+        organismConstraints.ipady = 30;
         organismConstraints.fill = GridBagConstraints.NORTH;
         organismConstraints.insets = new Insets(0, 0, 0, 0);
         contentPane.add(mOrganismSelector, organismConstraints);
