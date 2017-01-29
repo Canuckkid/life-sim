@@ -46,6 +46,7 @@ public class Main {
                 try {
                     mStartPage = new StartPage();
                     addListeners();
+                    GameUtils.playSound();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -7,8 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import life.organisms.Algae;
 import life.organisms.Fish;
 import life.organisms.Organism;
@@ -147,5 +153,27 @@ public final class GameUtils {
         } else {
             return index % length;
         }
+    }
+
+    /**
+     * Plays the theme music
+     */
+    public static synchronized void playSound() //Plays theme
+    {
+        new Thread(new Runnable() { //Runs on seperate thread
+            public void run() {
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+                        this.getClass().getResourceAsStream("music.wav"));
+                    clip.open(inputStream); //Find file input
+                    clip.start();
+                    clip.loop(Clip.LOOP_CONTINUOUSLY); //Loop music continuously
+                    Thread.sleep(10000);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        }).start();
     }
 }
