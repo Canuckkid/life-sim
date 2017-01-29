@@ -181,7 +181,7 @@ public class GameBoard extends JFrame {
         gbc_btnPlaypause.gridy = 23;
         contentPane.add(btnPlaypause, gbc_btnPlaypause);
 
-        JButton Screenshot = new JButton("Screenshot");
+        JButton Screenshot = new JButton("Capture Image");
         GridBagConstraints gbc_Screenshot= new GridBagConstraints();
         gbc_Screenshot.insets = new Insets(0, 0, 0, 0);
         gbc_Screenshot.gridx = 35;
