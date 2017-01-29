@@ -1,16 +1,20 @@
 package life.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage; 
 import java.util.Hashtable;
-import javax.imageio.ImageIO; 
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,12 +33,12 @@ public class GameBoard extends JFrame {
     private JPanel contentPane;
     private DrawArea cellGrid;
     JButton btnPlaypause;
-    JComboBox organismSelector;
     JButton restartButton;
     JSlider speedSlider;
     JSlider scaleSlider;
-    JButton quitButton;
     OrganismSelector mOrganismSelector;
+    EventsSelector mEventsSelector;
+
 
     /**
      * Create the frame.
@@ -87,13 +91,6 @@ public class GameBoard extends JFrame {
         logoConstraint.gridy = 2;
         contentPane.add(logoLabel, logoConstraint);
 
-        quitButton = new JButton("Quit");
-        GridBagConstraints quitConstraints = new GridBagConstraints();
-        quitConstraints.insets = new Insets(0, 0, 5, 5);
-        quitConstraints.gridx = 34;
-        quitConstraints.gridy = 4;
-        contentPane.add(quitButton, quitConstraints);
-
         restartButton = new JButton("Restart");
         GridBagConstraints restartConstraints = new GridBagConstraints();
         restartConstraints.insets = new Insets(0, 0, 5, 5);
@@ -101,8 +98,8 @@ public class GameBoard extends JFrame {
         restartConstraints.gridy = 4;
         contentPane.add(restartButton, restartConstraints);
 
-        JScrollPane bigPanel = new JScrollPane(cellGrid);
-        bigPanel.setBackground(Color.WHITE);
+        JScrollPane ecosystemView = new JScrollPane(cellGrid);
+        ecosystemView.setBackground(Color.WHITE);
         GridBagConstraints bigPanelConstraints = new GridBagConstraints();
         bigPanelConstraints.gridheight = 15;
         bigPanelConstraints.gridwidth = 20;
@@ -110,18 +107,18 @@ public class GameBoard extends JFrame {
         bigPanelConstraints.fill = GridBagConstraints.BOTH;
         bigPanelConstraints.gridx = 11;
         bigPanelConstraints.gridy = 6;
-        contentPane.add(bigPanel, bigPanelConstraints);
+        contentPane.add(ecosystemView, bigPanelConstraints);
 
-        JPanel lilPanel = new JPanel();
-        lilPanel.setBackground(Color.WHITE);
+        mEventsSelector = new EventsSelector();
         GridBagConstraints biteSizedConstraints = new GridBagConstraints();
         biteSizedConstraints.insets = new Insets(0, 0, 5, 5);
         biteSizedConstraints.fill = GridBagConstraints.BOTH;
         biteSizedConstraints.gridx = 32;
         biteSizedConstraints.gridy = 6;
-        biteSizedConstraints.gridheight = 15;
+        biteSizedConstraints.gridheight = 7;
         biteSizedConstraints.gridwidth = 7;
-        contentPane.add(lilPanel, biteSizedConstraints);
+
+        contentPane.add(mEventsSelector, biteSizedConstraints);
 
         speedSlider = new JSlider(30, 1000, 200);
         speedSlider.setOrientation(SwingConstants.VERTICAL);
@@ -179,14 +176,13 @@ public class GameBoard extends JFrame {
         gbc_btnNewButton_1.gridx = 37;
         gbc_btnNewButton_1.gridy = 24;
         contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
+
+        this.pack();
+        this.setVisible(true);
     }
 
     public void setPlayPauseListener(ActionListener a){
         btnPlaypause.addActionListener(a);
-    }
-
-    public void setOrganismSelectorListener(ActionListener a){
-        organismSelector.addActionListener(a);
     }
 
     public void setRestartButtonListener(ActionListener a){
@@ -195,10 +191,6 @@ public class GameBoard extends JFrame {
 
     public void setSpeedSliderListener(ChangeListener c){
         speedSlider.addChangeListener(c);
-    }
-
-    public void setQuitButtonListener(ActionListener a){
-        quitButton.addActionListener(a);
     }
 
     public void setScaleSliderListener(ChangeListener c) {
@@ -225,5 +217,42 @@ public class GameBoard extends JFrame {
 
     public OrganismSelector getOrganismSelector() {
         return mOrganismSelector;
+    }
+
+    public void setEventsListener(ActionListener l){
+        mEventsSelector.addActionListener(l);
+    }
+
+    private class EventsSelector extends JPanel{
+        JButton algae;
+        JButton oil;
+        JButton garbage;
+
+        public EventsSelector(){
+            this.setLayout(new BorderLayout(0,0));
+            this.setBackground(Color.white);
+
+            algae = new JButton("Algal Bloom");
+            algae.setActionCommand(String.valueOf(Ecosystem.ALGAL_BLOOM));
+            algae.setPreferredSize(new Dimension(getWidth(), 50));
+
+            oil = new JButton("Oil Spill");
+            oil.setActionCommand(String.valueOf(Ecosystem.OIL_SPILL));
+            oil.setPreferredSize(new Dimension(getWidth(), 50));
+
+            garbage = new JButton("Garbage Patch");
+            garbage.setActionCommand(String.valueOf(Ecosystem.GARBAGE_PATCH));
+            garbage.setPreferredSize(new Dimension(getWidth(), 50));
+
+            this.add(algae, BorderLayout.NORTH);
+            this.add(oil, BorderLayout.CENTER);
+            this.add(garbage, BorderLayout.SOUTH);
+        }
+
+        public void addActionListener(ActionListener l){
+            algae.addActionListener(l);
+            oil.addActionListener(l);
+            garbage.addActionListener(l);
+        }
     }
 }

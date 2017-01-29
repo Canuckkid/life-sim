@@ -61,4 +61,16 @@ public abstract class Organism{
 
         isAlive();
     }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getFoodLevel() {
+        return foodLevel;
+    }
+
+    public int getFoodLimit() {
+        return FOOD_LIMIT;
+    }
 }

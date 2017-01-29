@@ -1,6 +1,7 @@
 package life;
 
 import java.awt.EventQueue;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -8,10 +9,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputAdapter;
-import life.organisms.Organism;
 import life.view.DrawArea;
 import life.view.GameBoard;
-import life.view.OrganismSelector;
 
 /**
  * Created by Varun on 2017-01-09.
@@ -32,7 +31,6 @@ public class Game {
         initialEcosystem = mEcosystem;
 
         mGameBoard = new GameBoard(mEcosystem);
-        mGameBoard.setVisible(true);
         mGameBoard.addMouseListener(new GameMouseAdapter());
 
         startSim();
@@ -45,6 +43,7 @@ public class Game {
         mGameBoard.setRestartButtonListener(restart);
         mGameBoard.setScaleSliderListener(scaleChanger);
         mGameBoard.setNewOrganismListener(organismSelector);
+        mGameBoard.setEventsListener(eventSelector);
 
         timer = new Timer(1000, timerListener);
 
@@ -56,8 +55,6 @@ public class Game {
             }
         }).start();
     }
-
-    private void nextRound(){}
 
     public void endGame(){
         timer.stop();
@@ -128,6 +125,38 @@ public class Game {
         }
     };
 
+    private ActionListener eventSelector = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(mGameBoard.getDrawArea().isSelected()) {
+                int id = Integer.parseInt(e.getActionCommand());
+
+                Rectangle highlight = mGameBoard.getDrawArea().getSelectedHighlight();
+                int startX = highlight.x / mGameBoard.getDrawArea().getCellSize();
+                int startY = highlight.y / mGameBoard.getDrawArea().getCellSize();
+                int endX = (highlight.x + highlight.width) / mGameBoard.getDrawArea().getCellSize();
+                int endY = (highlight.y + highlight.height) / mGameBoard.getDrawArea().getCellSize();
+
+                switch (id) {
+                    case Ecosystem.ALGAL_BLOOM:
+                        mEcosystem.algalBloom(startX, startY, endX, endY);
+                        break;
+                    case Ecosystem.GARBAGE_PATCH:
+                        mEcosystem.garbagePatch(startX, startY, endX, endY);
+                        break;
+                    case Ecosystem.OIL_SPILL:
+                        mEcosystem.oilSpill(startX, startY, endX, endY);
+                        break;
+                    default:
+                        break;
+                }
+
+                mGameBoard.getDrawArea().removeHighlight();
+                mGameBoard.getDrawArea().repaint();
+            }
+        }
+    };
+
     private class GameMouseAdapter extends MouseInputAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -162,8 +191,6 @@ public class Game {
         public void mouseReleased(MouseEvent e) {
             if(e.getSource() instanceof DrawArea) {
                 ((DrawArea) e.getSource()).updateHighlight(e.getPoint());
-
-                //((DrawArea) e.getSource()).removeHighlight();
             }
         }
 
@@ -171,6 +198,19 @@ public class Game {
         public void mouseDragged(MouseEvent e) {
             if(e.getSource() instanceof DrawArea) {
                 ((DrawArea) e.getSource()).updateHighlight(e.getPoint());
+            }
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            //super.mouseMoved(e);
+
+            if(e.getSource() instanceof DrawArea) {
+                int row = e.getX() / mGameBoard.getDrawArea().getCellSize();
+                int col = e.getY() / mGameBoard.getDrawArea().getCellSize();
+
+                //Not working because tooltip displays at component end, not cell
+                mGameBoard.getDrawArea().setToolTipText(col, row);
             }
         }
     }
