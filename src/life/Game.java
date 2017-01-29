@@ -11,11 +11,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputAdapter;
 import life.view.DrawArea;
 import life.view.GameBoard;
-import java.awt.Robot; 
-import java.awt.Toolkit; 
-import java.awt.image.BufferedImage;
-import java.io.File; 
-import javax.imageio.ImageIO; 
 
 /**
  * Created by Varun on 2017-01-09.
@@ -49,7 +44,6 @@ public class Game {
         mGameBoard.setScaleSliderListener(scaleChanger);
         mGameBoard.setNewOrganismListener(organismSelector);
         mGameBoard.setEventsListener(eventSelector);
-        mGameBoard.setscreenshotListener(ScreenShot); 
 
         timer = new Timer(1000, timerListener);
 
@@ -71,22 +65,6 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 mEcosystem.createNextGeneration();
                 mGameBoard.updateEcosystem(mEcosystem);
-            }
-        };
-
-    private ActionListener ScreenShot = new ActionListener (){
-            @Override 
-            public void actionPerformed (ActionEvent e) {
-
-                Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-                try{
-                    BufferedImage capture = new Robot().createScreenCapture(screenRect);
-                    ImageIO.write(capture, "png", new File("saved.png")); 
-                }
-                catch(Exception r)
-                {
-                    System.out.print ("No File"); 
-                }
             }
         };
 

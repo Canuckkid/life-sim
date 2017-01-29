@@ -27,6 +27,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import life.Ecosystem;
+import java.awt.Robot; 
+import java.awt.Toolkit; 
+import java.awt.image.BufferedImage;
+import java.io.File; 
+import java.awt.Rectangle;
 
 public class GameBoard extends JFrame {
 
@@ -183,6 +188,20 @@ public class GameBoard extends JFrame {
         gbc_Screenshot.gridy = 25;
         contentPane.add(Screenshot,gbc_Screenshot);
 
+        Screenshot.addActionListener( new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                     try{
+                    Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+                    BufferedImage capture = new Robot().createScreenCapture(screenRect);
+                    ImageIO.write(capture, "png", new File("saved.png")); 
+                }
+                catch(Exception r)
+                {
+                    System.out.print ("No File"); 
+                }
+                }
+            }); 
+
         this.setPreferredSize(new Dimension(1080, 720));
         this.pack();
         this.setVisible(true);
@@ -208,8 +227,8 @@ public class GameBoard extends JFrame {
         cellGrid.updateEcosystem(e);
     }
 
-    public void setscreenshotListener(ActionListener s){
-        Screenshot.addActionListener(s); 
+    public void setScreenshotListener(ActionListener e){
+        Screenshot.addActionListener(e); 
     }
 
     public void setNewOrganismListener(ActionListener l){
