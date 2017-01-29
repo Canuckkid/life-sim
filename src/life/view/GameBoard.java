@@ -39,7 +39,6 @@ public class GameBoard extends JFrame {
     OrganismSelector mOrganismSelector;
     EventsSelector mEventsSelector;
 
-
     /**
      * Create the frame.
      */
@@ -65,7 +64,7 @@ public class GameBoard extends JFrame {
 
         BufferedImage imgsrc; 
         try{
-         imgsrc = ImageIO.read(getClass().getResourceAsStream("images/life.png"));
+            imgsrc = ImageIO.read(getClass().getResourceAsStream("images/life.png"));
         }
         catch (Exception e)
         {
@@ -130,6 +129,7 @@ public class GameBoard extends JFrame {
         labelTable.put(30, new JLabel("Fast"));
         speedSlider.setLabelTable(labelTable);
         speedSlider.setPaintLabels(true);
+        speedSlider.setOpaque (false); 
 
         GridBagConstraints sliderConstraints = new GridBagConstraints();
         sliderConstraints.gridheight = 14;
@@ -141,6 +141,8 @@ public class GameBoard extends JFrame {
         scaleSlider = new JSlider(5, 50, 5);
         scaleSlider.setOrientation(SwingConstants.VERTICAL);
         scaleSlider.setMinimumSize(new Dimension(16, 400));
+        scaleSlider.setOpaque (false);
+
         GridBagConstraints scaleConstraints = new GridBagConstraints();
         scaleConstraints.gridheight = 14;
         scaleConstraints.insets = new Insets(0, 0, 5, 5);
