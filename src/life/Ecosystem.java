@@ -151,7 +151,7 @@ public class Ecosystem {
     }
 
     public void algalBloom(int startx, int starty, int endx, int endy) {
-        final int PROBABILITY = 50; //50% of wipeout
+        final int PROBABILITY = 50;
 
         for(int col = startx; col <= endx; col++){
             for(int row = starty; row <= endy; row++) {
@@ -166,11 +166,11 @@ public class Ecosystem {
     }
 
     public void garbagePatch(int startx, int starty, int endx, int endy){
-        final int PROBABILITY = 60; //60% of wipeout
+        final int PROBABILITY = 40;
 
         for(int col = startx; col <= endx; col++){
             for(int row = starty; row <= endy; row++) {
-                if(mRandom.nextInt(100) > PROBABILITY){ //60% of wipeout
+                if(mRandom.nextInt(100) < PROBABILITY){ //60% of wipeout
                     try {
                         //ecosystem[col][row] = null;
                         ecosystem[col][row] = new Garbage();
@@ -184,11 +184,11 @@ public class Ecosystem {
     //public void invasiveSpecies(int startx, int starty, int endx, int endy){}
 
     public void oilSpill(int startx, int starty, int endx, int endy){
-        final int PROBABILITY = 75; //75% of wipeout
+        final int PROBABILITY = 25; //75% of wipeout
 
         for(int col = startx; col <= endx; col++){
             for(int row = starty; row <= endy; row++) {
-                if(mRandom.nextInt(100) > PROBABILITY){ //75% of wipeout
+                if(mRandom.nextInt(100) < PROBABILITY){ //75% of wipeout
                     ecosystem[col][row] = null;
                 }
             }
@@ -267,5 +267,61 @@ public class Ecosystem {
 
     public Organism getOrganism(int col, int row){
         return ecosystem[col][row];
+    }
+
+    public int getAlgaeCount(){
+        int counter = 0;
+
+        for(int col = 0; col < ecosystem.length; col++){
+            for (int row = 0; row < ecosystem[col].length; row ++) {
+                if(ecosystem[col][row] instanceof Algae){
+                    counter++;
+                }
+            }
+        }
+
+        return counter;
+    }
+
+    public int getFishCount(){
+        int counter = 0;
+
+        for(int col = 0; col < ecosystem.length; col++){
+            for (int row = 0; row < ecosystem[col].length; row ++) {
+                if(ecosystem[col][row] instanceof Fish){
+                    counter++;
+                }
+            }
+        }
+
+        return counter;
+    }
+
+    public int getSharkCount(){
+        int counter = 0;
+
+        for(int col = 0; col < ecosystem.length; col++){
+            for (int row = 0; row < ecosystem[col].length; row ++) {
+                if(ecosystem[col][row] instanceof Shark){
+                    counter++;
+                }
+            }
+        }
+
+        return counter;
+    }
+
+    public int getGarbageCount(){
+        int counter = 0;
+
+        for(int col = 0; col < ecosystem.length; col++){
+            for (int row = 0; row < ecosystem[col].length; row ++) {
+                if(ecosystem[col][row] instanceof Garbage){
+                    counter++;
+                }
+            }
+        }
+
+        return counter;
     }
 }

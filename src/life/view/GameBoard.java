@@ -32,6 +32,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File; 
 import java.awt.Rectangle;
+import life.ScreenImage;
 
 public class GameBoard extends JFrame {
 
@@ -190,15 +191,16 @@ public class GameBoard extends JFrame {
 
         Screenshot.addActionListener( new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                     try{
-                    Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-                    BufferedImage capture = new Robot().createScreenCapture(screenRect);
-                    ImageIO.write(capture, "png", new File("saved.png")); 
-                }
-                catch(Exception r)
-                {
-                    System.out.print ("No File"); 
-                }
+                    try {
+                        BufferedImage bi = ScreenImage.createImage(cellGrid);
+                        ScreenImage.writeImage(bi, "Screen-Image.jpg");
+
+                        //Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+                        //BufferedImage capture = new Robot().createScreenCapture(screenRect);
+                        //ImageIO.write(capture, "png", new File("saved.png"));
+                    } catch (Exception r) {
+                        System.out.print("No File");
+                    }
                 }
             }); 
 
@@ -301,5 +303,21 @@ public class GameBoard extends JFrame {
 
     private class Legend extends JPanel{
 
+        private JLabel algae;
+        private JLabel fish;
+        private JLabel shark;
+        private JLabel garbage;
+
+        private final String algaeText = "";
+        private final String fishText = "";
+        private final String sharkText = "";
+        private final String garbageText = "";
+
+        public Legend(){
+            algae = new JLabel(algaeText);
+            fish = new JLabel(fishText);
+            shark = new JLabel(sharkText);
+            garbage = new JLabel(garbageText);
+        }
     }
 }

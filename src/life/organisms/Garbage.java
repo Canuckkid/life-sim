@@ -5,7 +5,7 @@ import java.awt.Color;
 /**
  * Created by Varun on 2017-01-29.
  *
- * Class for garbage in a garbage patch. Garbage doesn't move or eat or die. Just stays there forever.
+ * Class for garbage in a garbage patch. Garbage doesn't move or eat or die. Will disappear "naturally" with time.
  */
 public class Garbage extends Organism {
 
