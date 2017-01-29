@@ -59,6 +59,8 @@ public class DrawArea extends JPanel {
                     g.setColor(Algae.colour);
                 } else if (e[r][c] instanceof Shark) {
                     g.setColor(Shark.colour);
+                } else if (e[r][c] instanceof Garbage) {
+                    g.setColor(Garbage.colour);
                 }
 
 
