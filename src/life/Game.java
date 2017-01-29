@@ -66,7 +66,7 @@ public class Game {
                 mEcosystem.createNextGeneration();
                 mGameBoard.updateEcosystem(mEcosystem);
 
-                mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                mGameBoard.updateLegend(mEcosystem.getGenerationCount(), mEcosystem.getAlgaeCount(),
                     mEcosystem.getFishCount(),
                     mEcosystem.getSharkCount(),
                     mEcosystem.getGarbageCount());
@@ -118,7 +118,7 @@ public class Game {
                 mGameBoard.updateEcosystem(mEcosystem);
                 mGameBoard.getDrawArea().repaint();
 
-                mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                mGameBoard.updateLegend(mEcosystem.getGenerationCount(), mEcosystem.getAlgaeCount(),
                     mEcosystem.getFishCount(),
                     mEcosystem.getSharkCount(),
                     mEcosystem.getGarbageCount());
@@ -143,7 +143,7 @@ public class Game {
                     mGameBoard.getDrawArea().removeHighlight();
                     mGameBoard.getDrawArea().repaint();
 
-                    mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                    mGameBoard.updateLegend(mEcosystem.getGenerationCount(), mEcosystem.getAlgaeCount(),
                         mEcosystem.getFishCount(),
                         mEcosystem.getSharkCount(),
                         mEcosystem.getGarbageCount());
@@ -184,7 +184,7 @@ public class Game {
                     mGameBoard.getDrawArea().removeHighlight();
                     mGameBoard.getDrawArea().repaint();
 
-                    mGameBoard.updateLegend(mEcosystem.getAlgaeCount(),
+                    mGameBoard.updateLegend(mEcosystem.getGenerationCount(), mEcosystem.getAlgaeCount(),
                         mEcosystem.getFishCount(),
                         mEcosystem.getSharkCount(),
                         mEcosystem.getGarbageCount());

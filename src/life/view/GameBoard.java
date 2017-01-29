@@ -169,7 +169,7 @@ public class GameBoard extends JFrame {
         GridBagConstraints legendConstraints = new GridBagConstraints();
         legendConstraints.gridheight = 3;
         legendConstraints.gridwidth = 8;
-        legendConstraints.insets = new Insets(0, 0, 5, 5);
+        legendConstraints.insets = new Insets(0, 15, 5, 5);
         legendConstraints.gridx = 10;
         legendConstraints.gridy = 21;
         contentPane.add(mLegend, legendConstraints);
@@ -258,8 +258,8 @@ public class GameBoard extends JFrame {
         mEventsSelector.enableBtns(isEnabled);
     }
 
-    public void updateLegend(int algae, int fish, int shark, int garbage) {
-        mLegend.update(algae, fish, shark, garbage);
+    public void updateLegend(int generation, int algae, int fish, int shark, int garbage) {
+        mLegend.update(generation, algae, fish, shark, garbage);
     }
 
     /* Simple custom components */
@@ -310,8 +310,12 @@ public class GameBoard extends JFrame {
         private JLabel fishCount;
         private JLabel sharkCount;
         private JLabel garbageCount;
+        private JLabel generationCount;
 
         public Legend(){
+            JLabel generation = new JLabel("Generation: ");
+            generation.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+
             JLabel algae = new JLabel("Algae: ");
             algae.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
             algae.setForeground(Algae.colour);
@@ -332,9 +336,12 @@ public class GameBoard extends JFrame {
             fishCount = new JLabel(String.valueOf(0));
             sharkCount = new JLabel(String.valueOf(0));
             garbageCount = new JLabel(String.valueOf(0));
+            generationCount = new JLabel(String.valueOf(0));
 
-            this.setLayout(new GridLayout(4, 2, 1, 1));
+            this.setLayout(new GridLayout(5, 2, 1, 1));
 
+            add(generation);
+            add(generationCount);
             add(algae);
             add(algaeCount);
             add(fish);
@@ -347,7 +354,8 @@ public class GameBoard extends JFrame {
             this.setPreferredSize(new Dimension(180, 150));
         }
 
-        public void update(int algae, int fish, int shark, int garbage){
+        public void update(int generation, int algae, int fish, int shark, int garbage){
+            generationCount.setText(String.valueOf(generation));
             algaeCount.setText(String.valueOf(algae));
             fishCount.setText(String.valueOf(fish));
             sharkCount.setText(String.valueOf(shark));

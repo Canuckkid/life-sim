@@ -25,6 +25,8 @@ public class Ecosystem {
     public static final int OIL_SPILL = 1;
     public static final int GARBAGE_PATCH = 2;
 
+    private int generationCount = 0;
+
     private Random mRandom = new Random();
 
     public Ecosystem(){
@@ -104,6 +106,7 @@ public class Ecosystem {
         }
 
         ecosystem = nextGen;
+        generationCount++;
     }
 
     /**
@@ -323,5 +326,9 @@ public class Ecosystem {
         }
 
         return counter;
+    }
+
+    public int getGenerationCount(){
+        return generationCount;
     }
 }
