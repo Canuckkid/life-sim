@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.params=
+comment0.target=OrganismSelector()
+comment1.params=
+comment1.target=void\ loadImages()
+comment2.params=
+comment2.target=void\ setListeners()
+comment3.params=e
+comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment4.params=e
+comment4.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment5.params=
+comment5.target=java.lang.String\ getCurrentOrganism()
+comment5.text=\r\n\ Gets\ the\ current\ organism\ being\ displayed\ in\ the\ imageBtn\ button\r\n\ @return\ Lowercase\ String\ of\ name\ of\ organism\ being\ displayed\r\n
+comment6.params=l
+comment6.target=void\ addImageListener(java.awt.event.ActionListener)
+comment6.text=\r\n\ Sets\ the\ action\ listener\ for\ the\ main\ image\ button\r\n\ @param\ l\ ActionListener\ to\ set\r\n
+numComments=7

@@ -8,7 +8,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage; 
 import java.util.Hashtable;
+import javax.imageio.ImageIO; 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.ImageIcon; 
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
@@ -64,7 +67,17 @@ public class GameBoard extends JFrame {
         sharkConstraints.gridy = 1;
         contentPane.add(mOrganismSelector, sharkConstraints);
 
-        JLabel logoLabel = new JLabel("Life is normal");
+        BufferedImage imgsrc; 
+        try{
+         imgsrc = ImageIO.read(getClass().getResourceAsStream("images/life.png"));
+        }
+        catch (Exception e)
+        {
+            imgsrc = null; 
+        }
+
+        ImageIcon i = new ImageIcon(imgsrc);
+        JLabel logoLabel = new JLabel(i);
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints logoConstraint = new GridBagConstraints();
         logoConstraint.gridheight = 5;
@@ -74,7 +87,7 @@ public class GameBoard extends JFrame {
         logoConstraint.gridy = 2;
         contentPane.add(logoLabel, logoConstraint);
 
-        quitButton = new JButton("quit");
+        quitButton = new JButton("Quit");
         GridBagConstraints quitConstraints = new GridBagConstraints();
         quitConstraints.insets = new Insets(0, 0, 5, 5);
         quitConstraints.gridx = 34;
