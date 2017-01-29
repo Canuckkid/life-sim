@@ -177,3 +177,11 @@ fabric.properties
 #Varun
 summative.iml
 /.idea/
+
+#BlueJ
+#Doc Ordner
+**/doc
+*.pkh
+*.ctxt
+*.bluej
+.DS_Store
