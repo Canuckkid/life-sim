@@ -38,6 +38,7 @@ public class GameBoard extends JFrame {
     JSlider scaleSlider;
     OrganismSelector mOrganismSelector;
     EventsSelector mEventsSelector;
+    JButton Screenshot; 
 
     /**
      * Create the frame.
@@ -175,6 +176,13 @@ public class GameBoard extends JFrame {
         gbc_btnStats.gridy = 24;
         contentPane.add(btnStats, gbc_btnStats);
 
+        JButton Screenshot = new JButton("Screenshot");
+        GridBagConstraints gbc_Screenshot= new GridBagConstraints();
+        gbc_Screenshot.insets = new Insets(0, 0, 0, 0);
+        gbc_Screenshot.gridx = 35;
+        gbc_Screenshot.gridy = 25;
+        contentPane.add(Screenshot,gbc_Screenshot);
+
         this.setPreferredSize(new Dimension(1080, 720));
         this.pack();
         this.setVisible(true);
@@ -198,6 +206,10 @@ public class GameBoard extends JFrame {
 
     public void updateEcosystem(Ecosystem e){
         cellGrid.updateEcosystem(e);
+    }
+
+    public void setscreenshotListener(ActionListener s){
+        Screenshot.addActionListener(s); 
     }
 
     public void setNewOrganismListener(ActionListener l){

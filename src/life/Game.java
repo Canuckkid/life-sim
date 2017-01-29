@@ -11,6 +11,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputAdapter;
 import life.view.DrawArea;
 import life.view.GameBoard;
+import java.awt.Robot; 
+import java.awt.Toolkit; 
+import java.awt.image.BufferedImage;
+import java.io.File; 
+import javax.imageio.ImageIO; 
 
 /**
  * Created by Varun on 2017-01-09.
@@ -44,16 +49,17 @@ public class Game {
         mGameBoard.setScaleSliderListener(scaleChanger);
         mGameBoard.setNewOrganismListener(organismSelector);
         mGameBoard.setEventsListener(eventSelector);
+        mGameBoard.setscreenshotListener(ScreenShot); 
 
         timer = new Timer(1000, timerListener);
 
         //Noticed a slowdown when on the same thread
         new Thread(new Runnable() {
-            @Override
-            public void run() {
-                timer.start();
-            }
-        }).start();
+                @Override
+                public void run() {
+                    timer.start();
+                }
+            }).start();
     }
 
     public void endGame(){
@@ -61,116 +67,132 @@ public class Game {
     }
 
     private ActionListener timerListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            mEcosystem.createNextGeneration();
-            mGameBoard.updateEcosystem(mEcosystem);
-        }
-    };
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mEcosystem.createNextGeneration();
+                mGameBoard.updateEcosystem(mEcosystem);
+            }
+        };
+
+    private ActionListener ScreenShot = new ActionListener (){
+            @Override 
+            public void actionPerformed (ActionEvent e) {
+
+                Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+                try{
+                    BufferedImage capture = new Robot().createScreenCapture(screenRect);
+                    ImageIO.write(capture, "png", new File("saved.png")); 
+                }
+                catch(Exception r)
+                {
+                    System.out.print ("No File"); 
+                }
+            }
+        };
 
     private ActionListener playListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton btn = (JButton) e.getSource();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton btn = (JButton) e.getSource();
 
-            if(btn.getText().equals("Play")) {
-                timer.start();
-                btn.setText("Pause");
-            } else{
-                timer.stop();
-                btn.setText("Play");
+                if(btn.getText().equals("Play")) {
+                    timer.start();
+                    btn.setText("Pause");
+                } else{
+                    timer.stop();
+                    btn.setText("Play");
+                }
             }
-        }
-    };
+        };
 
     private ChangeListener speedChanger = new ChangeListener() {
-        @Override
-        public void stateChanged(ChangeEvent e) {
-            try {
-                JSlider slider = (JSlider) e.getSource();
-                int value = slider.getValue();
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                try {
+                    JSlider slider = (JSlider) e.getSource();
+                    int value = slider.getValue();
 
-                timer.setDelay(value);
-                timer.restart();
-            } catch (Exception ex){
+                    timer.setDelay(value);
+                    timer.restart();
+                } catch (Exception ex){
+                }
             }
-        }
-    };
+        };
 
     private ChangeListener scaleChanger = new ChangeListener() {
-        @Override
-        public void stateChanged(ChangeEvent e) {
-            int val = ((JSlider) e.getSource()).getValue();
-            mGameBoard.getDrawArea().setSize(val);
-            mGameBoard.getDrawArea().repaint();
-        }
-    };
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int val = ((JSlider) e.getSource()).getValue();
+                mGameBoard.getDrawArea().setSize(val);
+                mGameBoard.getDrawArea().repaint();
+            }
+        };
 
     private ActionListener restart = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            mEcosystem = initialEcosystem; //Reset
-            mGameBoard.updateEcosystem(mEcosystem);
-            mGameBoard.getDrawArea().repaint();
-        }
-    };
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mEcosystem = initialEcosystem; //Reset
+                mGameBoard.updateEcosystem(mEcosystem);
+                mGameBoard.getDrawArea().repaint();
+            }
+        };
 
     private ActionListener organismSelector = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            organismType = mGameBoard.getOrganismSelector().getCurrentOrganism();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                organismType = mGameBoard.getOrganismSelector().getCurrentOrganism();
 
-            if(mGameBoard.getDrawArea().isSelected()){ //Highlighted area
-                Rectangle highlight = mGameBoard.getDrawArea().getSelectedHighlight();
-                int startX = highlight.x / mGameBoard.getDrawArea().getCellSize();
-                int startY = highlight.y / mGameBoard.getDrawArea().getCellSize();
-                int endX = (highlight.x + highlight.width) / mGameBoard.getDrawArea().getCellSize();
-                int endY = (highlight.y + highlight.height) / mGameBoard.getDrawArea().getCellSize();
+                if(mGameBoard.getDrawArea().isSelected()){ //Highlighted area
+                    Rectangle highlight = mGameBoard.getDrawArea().getSelectedHighlight();
+                    int startX = highlight.x / mGameBoard.getDrawArea().getCellSize();
+                    int startY = highlight.y / mGameBoard.getDrawArea().getCellSize();
+                    int endX = (highlight.x + highlight.width) / mGameBoard.getDrawArea().getCellSize();
+                    int endY = (highlight.y + highlight.height) / mGameBoard.getDrawArea().getCellSize();
 
-                mEcosystem.addOrganism(organismType, startY, startX, endY, endX);
+                    mEcosystem.addOrganism(organismType, startY, startX, endY, endX);
 
-                mGameBoard.setEventBtnsEnabled(false);
-                mGameBoard.getDrawArea().removeHighlight();
-                mGameBoard.getDrawArea().repaint();
+                    mGameBoard.setEventBtnsEnabled(false);
+                    mGameBoard.getDrawArea().removeHighlight();
+                    mGameBoard.getDrawArea().repaint();
 
-            }else { //Add single organisms
-                isCreateOrganism = true;
+                }else { //Add single organisms
+                    isCreateOrganism = true;
+                }
             }
-        }
-    };
+        };
 
     private ActionListener eventSelector = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(mGameBoard.getDrawArea().isSelected()) {
-                int id = Integer.parseInt(e.getActionCommand());
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(mGameBoard.getDrawArea().isSelected()) {
+                    int id = Integer.parseInt(e.getActionCommand());
 
-                Rectangle highlight = mGameBoard.getDrawArea().getSelectedHighlight();
-                int startX = highlight.x / mGameBoard.getDrawArea().getCellSize();
-                int startY = highlight.y / mGameBoard.getDrawArea().getCellSize();
-                int endX = (highlight.x + highlight.width) / mGameBoard.getDrawArea().getCellSize();
-                int endY = (highlight.y + highlight.height) / mGameBoard.getDrawArea().getCellSize();
+                    Rectangle highlight = mGameBoard.getDrawArea().getSelectedHighlight();
+                    int startX = highlight.x / mGameBoard.getDrawArea().getCellSize();
+                    int startY = highlight.y / mGameBoard.getDrawArea().getCellSize();
+                    int endX = (highlight.x + highlight.width) / mGameBoard.getDrawArea().getCellSize();
+                    int endY = (highlight.y + highlight.height) / mGameBoard.getDrawArea().getCellSize();
 
-                switch (id) {
-                    case Ecosystem.ALGAL_BLOOM:
+                    switch (id) {
+                        case Ecosystem.ALGAL_BLOOM:
                         mEcosystem.algalBloom(startY, startX, endY, endX);
                         break;
-                    case Ecosystem.GARBAGE_PATCH:
+                        case Ecosystem.GARBAGE_PATCH:
                         mEcosystem.garbagePatch(startY, startX, endY, endX);
                         break;
-                    case Ecosystem.OIL_SPILL:
+                        case Ecosystem.OIL_SPILL:
                         mEcosystem.oilSpill(startY, startX, endY, endX);
                         break;
-                    default:
+                        default:
                         break;
-                }
+                    }
 
-                mGameBoard.setEventBtnsEnabled(false);
-                mGameBoard.getDrawArea().removeHighlight();
-                mGameBoard.getDrawArea().repaint();
+                    mGameBoard.setEventBtnsEnabled(false);
+                    mGameBoard.getDrawArea().removeHighlight();
+                    mGameBoard.getDrawArea().repaint();
+                }
             }
-        }
-    };
+        };
 
     private class GameMouseAdapter extends MouseInputAdapter {
         @Override
