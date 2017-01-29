@@ -36,7 +36,8 @@ public class OrganismSelector extends JPanel {
 
     public OrganismSelector(){
         this.setPreferredSize(new Dimension(300, 400));
-
+        this.setOpaque (false); 
+        
         loadImages(); //Load the life.view.images from the directory
 
         prevBtn = new JButton("<-");

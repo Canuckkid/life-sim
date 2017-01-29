@@ -31,6 +31,7 @@ public class Game {
         initialEcosystem = mEcosystem;
 
         mGameBoard = new GameBoard(mEcosystem);
+        mGameBoard.setSize (1400, 1000); 
         mGameBoard.addMouseListener(new GameMouseAdapter());
 
         startSim();

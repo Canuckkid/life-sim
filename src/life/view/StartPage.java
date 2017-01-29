@@ -25,7 +25,7 @@ public class StartPage extends JFrame
      */
     public StartPage()
     {
-        contentPane = new ImagePanel(); 
+        contentPane = new ImagePanel("background.png"); 
         setContentPane (contentPane); 
         setResizable (false); 
         try{

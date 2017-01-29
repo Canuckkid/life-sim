@@ -50,7 +50,7 @@ public class GameBoard extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1080, 720);
-        contentPane = new JPanel();
+        contentPane = new ImagePanel("gameboard.png");
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -80,7 +80,7 @@ public class GameBoard extends JFrame {
         logoConstraint.gridwidth = 18;
         logoConstraint.insets = new Insets(0, 0, 5, 5);
         logoConstraint.gridx = 13;
-        logoConstraint.gridy = 2;
+        logoConstraint.gridy = 0;
         contentPane.add(logoLabel, logoConstraint);
 
         restartButton = new JButton("Restart");
@@ -115,9 +115,9 @@ public class GameBoard extends JFrame {
         organismConstraints.gridheight = 7;
         organismConstraints.gridwidth = 7;
         organismConstraints.gridx = 32;
-        organismConstraints.gridy = 12;
+        organismConstraints.gridy = 14;
         organismConstraints.fill = GridBagConstraints.NORTH;
-        organismConstraints.insets = new Insets(0, 0, 30, 0);
+        organismConstraints.insets = new Insets(0, 0, 0, 0);
         contentPane.add(mOrganismSelector, organismConstraints);
 
         contentPane.add(mEventsSelector, biteSizedConstraints);
@@ -152,24 +152,24 @@ public class GameBoard extends JFrame {
         legendLabel.setBackground(Color.DARK_GRAY);
         GridBagConstraints legendConstraints = new GridBagConstraints();
         legendConstraints.gridheight = 3;
-        legendConstraints.gridwidth = 20;
+        legendConstraints.gridwidth = 8;
         legendConstraints.insets = new Insets(0, 0, 5, 5);
         legendConstraints.gridx = 11;
-        legendConstraints.gridy = 22;
+        legendConstraints.gridy = 21;
         contentPane.add(legendLabel, legendConstraints);
 
         btnPlaypause = new JButton("Pause");
         GridBagConstraints gbc_btnPlaypause = new GridBagConstraints();
-        gbc_btnPlaypause.insets = new Insets(0, 0, 5, 5);
-        gbc_btnPlaypause.gridx = 37;
-        gbc_btnPlaypause.gridy = 22;
+        gbc_btnPlaypause.insets = new Insets(0, 0, 0, 0);
+        gbc_btnPlaypause.gridx = 35;
+        gbc_btnPlaypause.gridy = 23;
         contentPane.add(btnPlaypause, gbc_btnPlaypause);
 
         JButton btnStats = new JButton("Stats");
         GridBagConstraints gbc_btnStats = new GridBagConstraints();
-        gbc_btnStats.insets = new Insets(0, 0, 5, 5);
-        gbc_btnStats.gridx = 37;
-        gbc_btnStats.gridy = 23;
+        gbc_btnStats.insets = new Insets(0, 0, 0, 0);
+        gbc_btnStats.gridx = 35;
+        gbc_btnStats.gridy = 24;
         contentPane.add(btnStats, gbc_btnStats);
 
         this.pack();

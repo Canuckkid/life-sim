@@ -12,9 +12,9 @@ import java.awt.Graphics;
 public class ImagePanel extends JPanel
 {
     private Image image;
-    public ImagePanel() {
+    public ImagePanel(String background) {
         try{
-            image = ImageIO.read(getClass().getResourceAsStream("images/background.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("images/" + background));
         }
         catch (Exception e)
         {}
