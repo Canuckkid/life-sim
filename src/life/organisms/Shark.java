@@ -1,11 +1,14 @@
 package life.organisms;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
  * Created by Varun on 2017-01-09.
  */
 public class Shark extends Organism {
+
+    public static final Color colour = Color.decode("#6200EA");
 
     public Shark(){
         super();

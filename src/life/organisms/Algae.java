@@ -1,9 +1,13 @@
 package life.organisms;
 
+import java.awt.Color;
+
 /**
  * Created by Varun on 2017-01-09.
  */
 public class Algae extends Organism {
+
+    public static final Color colour = Color.decode("#4CAF50");
 
     public Algae(){
         super();

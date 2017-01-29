@@ -184,3 +184,4 @@ summative.iml
 *.ctxt
 *.bluej
 .DS_Store
+/src/META-INF/

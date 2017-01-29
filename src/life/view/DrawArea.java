@@ -54,12 +54,13 @@ public class DrawArea extends JPanel {
                 if (e[r][c] == null) { // Don't fill empty spaces
                     g.setColor(Color.WHITE);
                 } else if (e[r][c] instanceof Fish) {
-                    g.setColor(Color.BLUE);
+                    g.setColor(Fish.colour);
                 } else if (e[r][c] instanceof Algae) {
-                    g.setColor(Color.GREEN);
+                    g.setColor(Algae.colour);
                 } else if (e[r][c] instanceof Shark) {
-                    g.setColor(Color.BLACK);
+                    g.setColor(Shark.colour);
                 }
+
 
                 g.fillRect(c * cellSize, r * cellSize, (c+1) * cellSize, (r+1) * cellSize); // Draw the organism
             }
@@ -75,9 +76,9 @@ public class DrawArea extends JPanel {
         }
 
         if (isSelected) {
-            g.setColor(new Color(127, 127, 255));
+            g.setColor(new Color(97, 97, 97));
             g.drawRect(selectedHighlight.x, selectedHighlight.y, selectedHighlight.width, selectedHighlight.height);
-            g.setColor(new Color(127, 127, 255, 64));
+            g.setColor(new Color(97, 97, 97, 90));
             g.fillRect(selectedHighlight.x, selectedHighlight.y, selectedHighlight.width, selectedHighlight.height);
         }
     }

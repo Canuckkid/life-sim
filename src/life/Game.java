@@ -139,13 +139,13 @@ public class Game {
 
                 switch (id) {
                     case Ecosystem.ALGAL_BLOOM:
-                        mEcosystem.algalBloom(startX, startY, endX, endY);
+                        mEcosystem.algalBloom(startY, startX, endY, endX);
                         break;
                     case Ecosystem.GARBAGE_PATCH:
-                        mEcosystem.garbagePatch(startX, startY, endX, endY);
+                        mEcosystem.garbagePatch(startY, startX, endY, endX);
                         break;
                     case Ecosystem.OIL_SPILL:
-                        mEcosystem.oilSpill(startX, startY, endX, endY);
+                        mEcosystem.oilSpill(startY, startX, endY, endX);
                         break;
                     default:
                         break;

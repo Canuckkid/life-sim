@@ -168,7 +168,9 @@ public class Ecosystem {
         for(int col = startx; col <= endx; col++){
             for(int row = starty; row <= endy; row++) {
                 if(mRandom.nextInt(100) > PROBABILITY){ //60% of wipeout
-                    ecosystem[col][row] = null;
+                    try {
+                        ecosystem[col][row] = null;
+                    } catch (ArrayIndexOutOfBoundsException e){}
                 }
             }
         }
