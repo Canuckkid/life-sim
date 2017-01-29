@@ -218,6 +218,10 @@ public class GameBoard extends JFrame {
         mEventsSelector.addActionListener(l);
     }
 
+    public void setEventBtnsEnabled(boolean isEnabled){
+        mEventsSelector.enableBtns(isEnabled);
+    }
+
     private class EventsSelector extends JPanel{
         JButton algae;
         JButton oil;
@@ -242,6 +246,14 @@ public class GameBoard extends JFrame {
             this.add(algae, BorderLayout.NORTH);
             this.add(oil, BorderLayout.CENTER);
             this.add(garbage, BorderLayout.SOUTH);
+
+            enableBtns(false); //Buttons start off disabled
+        }
+
+        public void enableBtns(boolean isEnabled){
+            algae.setEnabled(isEnabled);
+            garbage.setEnabled(isEnabled);
+            oil.setEnabled(isEnabled);
         }
 
         public void addActionListener(ActionListener l){

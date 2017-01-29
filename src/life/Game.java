@@ -150,6 +150,7 @@ public class Game {
                         break;
                 }
 
+                mGameBoard.setEventBtnsEnabled(false);
                 mGameBoard.getDrawArea().removeHighlight();
                 mGameBoard.getDrawArea().repaint();
             }
@@ -176,6 +177,8 @@ public class Game {
                 } else {
                     ((DrawArea) e.getSource()).removeHighlight();
                 }
+
+                mGameBoard.setEventBtnsEnabled(false);
             }
         }
 
@@ -183,6 +186,7 @@ public class Game {
         public void mousePressed(MouseEvent e) {
             if(e.getSource() instanceof DrawArea){
                 ((DrawArea) e.getSource()).startHighlight(e.getPoint());
+                mGameBoard.setEventBtnsEnabled(true);
             }
         }
 
@@ -190,6 +194,7 @@ public class Game {
         public void mouseReleased(MouseEvent e) {
             if(e.getSource() instanceof DrawArea) {
                 ((DrawArea) e.getSource()).updateHighlight(e.getPoint());
+                mGameBoard.setEventBtnsEnabled(true);
             }
         }
 
@@ -197,6 +202,7 @@ public class Game {
         public void mouseDragged(MouseEvent e) {
             if(e.getSource() instanceof DrawArea) {
                 ((DrawArea) e.getSource()).updateHighlight(e.getPoint());
+                mGameBoard.setEventBtnsEnabled(true);
             }
         }
 
