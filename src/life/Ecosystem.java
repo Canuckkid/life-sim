@@ -3,6 +3,7 @@ package life;
 import java.util.Random;
 import life.organisms.Algae;
 import life.organisms.Fish;
+import life.organisms.Garbage;
 import life.organisms.Organism;
 import life.organisms.Shark;
 import life.view.OrganismSelector;
@@ -63,7 +64,9 @@ public class Ecosystem {
             for (int row = 0; row < ecosystem[col].length; row++){
                 Organism[][] subset = subset(col, row); //Get the life.organisms surroundings
 
-                if(ecosystem[col][row] != null) {
+                if(ecosystem[col][row] instanceof Garbage){
+                    nextGen[col][row] = new Garbage();
+                } else if(ecosystem[col][row] != null) { //Garbage doesnt move either
                     ecosystem[col][row].nextYear(); //Age organism
 
                     if(ecosystem[col][row].isAlive()) { //Check if died of old age
@@ -81,7 +84,7 @@ public class Ecosystem {
 
                         //Set the organism to its new position
                         nextGen[wrappedX][wrappedY] = ecosystem[col][row];
-                    } else{
+                    } else {
                         nextGen[col][row] = null; //Organism is dead
                     }
                 }
@@ -169,7 +172,8 @@ public class Ecosystem {
             for(int row = starty; row <= endy; row++) {
                 if(mRandom.nextInt(100) > PROBABILITY){ //60% of wipeout
                     try {
-                        ecosystem[col][row] = null;
+                        //ecosystem[col][row] = null;
+                        ecosystem[col][row] = new Garbage();
                     } catch (ArrayIndexOutOfBoundsException e){}
                 }
             }

@@ -135,7 +135,7 @@ public class Fish extends Organism {
         dc = Math.round((2*predDc + foodDc) / 3.0f);
 
         // Don't move onto a space unless it's empty or occupied by prey
-        if (!(neighbours[2+dr][2+dc] == null || neighbours[2+dr][2+dc] instanceof Algae)) {
+        if (!(neighbours[2+dr][2+dc] == null || neighbours[2+dr][2+dc] instanceof Garbage || neighbours[2+dr][2+dc] instanceof Algae)) {
             if (dr == -2) {
                 dr = -1;
             } else if (dr == -1) {

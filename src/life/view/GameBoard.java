@@ -226,6 +226,7 @@ public class GameBoard extends JFrame {
         mEventsSelector.enableBtns(isEnabled);
     }
 
+    /* Simple custom components */
     private class EventsSelector extends JPanel{
         JButton algae;
         JButton oil;
@@ -265,5 +266,9 @@ public class GameBoard extends JFrame {
             oil.addActionListener(l);
             garbage.addActionListener(l);
         }
+    }
+
+    private class Legend extends JPanel{
+
     }
 }
