@@ -239,7 +239,26 @@ public class Ecosystem {
         }
 
         ecosystem[col][row] = organism;
+    }
 
+    public void addOrganism(int organismType, int startY, int startX, int endY, int endX){
+        int probability;
+
+        if(organismType == OrganismSelector.ORGANISM_ALGAE){
+            probability = 33; //third chance
+        } else if(organismType == OrganismSelector.ORGANISM_FISH){
+            probability = 20; //fifth chance
+        } else {
+            probability = 10; //tenth chance
+        }
+
+        for(int col = startX; col <= endX; col++){
+            for(int row = startY; row <= endY; row++) {
+                if(mRandom.nextInt(100) < probability){ //75% of wipeout
+                    addOrganism(organismType, row, col);
+                }
+            }
+        }
     }
 
     public Organism getOrganism(int col, int row){

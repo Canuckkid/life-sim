@@ -174,6 +174,7 @@ public class GameBoard extends JFrame {
         gbc_btnStats.gridy = 24;
         contentPane.add(btnStats, gbc_btnStats);
 
+        this.setPreferredSize(new Dimension(1080, 720));
         this.pack();
         this.setVisible(true);
     }

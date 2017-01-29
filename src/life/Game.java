@@ -31,7 +31,6 @@ public class Game {
         initialEcosystem = mEcosystem;
 
         mGameBoard = new GameBoard(mEcosystem);
-        mGameBoard.setSize (1400, 1000); 
         mGameBoard.addMouseListener(new GameMouseAdapter());
 
         startSim();
@@ -120,8 +119,23 @@ public class Game {
         @Override
         public void actionPerformed(ActionEvent e) {
             organismType = mGameBoard.getOrganismSelector().getCurrentOrganism();
-            isCreateOrganism = true;
 
+            if(mGameBoard.getDrawArea().isSelected()){ //Highlighted area
+                Rectangle highlight = mGameBoard.getDrawArea().getSelectedHighlight();
+                int startX = highlight.x / mGameBoard.getDrawArea().getCellSize();
+                int startY = highlight.y / mGameBoard.getDrawArea().getCellSize();
+                int endX = (highlight.x + highlight.width) / mGameBoard.getDrawArea().getCellSize();
+                int endY = (highlight.y + highlight.height) / mGameBoard.getDrawArea().getCellSize();
+
+                mEcosystem.addOrganism(organismType, startY, startX, endY, endX);
+
+                mGameBoard.setEventBtnsEnabled(false);
+                mGameBoard.getDrawArea().removeHighlight();
+                mGameBoard.getDrawArea().repaint();
+
+            }else { //Add single organisms
+                isCreateOrganism = true;
+            }
         }
     };
 
