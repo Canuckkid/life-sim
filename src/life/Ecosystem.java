@@ -19,6 +19,11 @@ public class Ecosystem {
     private final int MAX_SIZE = 100;
     private final int SPAWN_RATE = 25; //1/4 chance of spawning
 
+    //Magic constants
+    public static final int ALGAL_BLOOM = 0;
+    public static final int OIL_SPILL = 1;
+    public static final int GARBAGE_PATCH = 2;
+
     private Random mRandom = new Random();
 
     public Ecosystem(){
@@ -233,5 +238,9 @@ public class Ecosystem {
 
         ecosystem[col][row] = organism;
 
+    }
+
+    public Organism getOrganism(int col, int row){
+        return ecosystem[col][row];
     }
 }

@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
+import javax.swing.JToolTip;
 import javax.swing.event.MouseInputAdapter;
 import life.organisms.*;
 import life.Ecosystem;
@@ -25,6 +26,8 @@ public class DrawArea extends JPanel {
     private Point startPoint;
     private boolean isSelected;
 
+    private Point hoveredOrganism; //Point of where to display tooltip
+
     public DrawArea(Ecosystem e) {
         this.e = e.getOrganisms();
         this.cellSize = 5;
@@ -34,6 +37,8 @@ public class DrawArea extends JPanel {
         selectedHighlight = new Rectangle();
         isSelected = false;
 
+        createToolTip(); //Make a tooltip to display organism info
+        hoveredOrganism = new Point();
     }
 
     public void updateEcosystem(Ecosystem e){
@@ -124,5 +129,31 @@ public class DrawArea extends JPanel {
 
     public int getCellSize() {
         return cellSize;
+    }
+
+    public void setToolTipText(int col, int row){
+        Organism organism = e[col][row];
+
+        if(organism == null){
+            setToolTipText(null);
+            return;
+        }
+
+        String text = "";
+
+        if(organism instanceof Algae){
+            text += "Algae\n";
+        } else if (organism instanceof Fish) {
+            text += "Fish\n";
+        } else{
+            text += "Shark\n";
+        }
+
+        text += "Age: " + organism.getAge() + "\n";
+        text += "Food Level: " + organism.getFoodLevel() * 100.00 / organism.getFoodLimit() + "%";
+
+        hoveredOrganism.setLocation(col * cellSize, row * cellSize);
+
+        setToolTipText(text);
     }
 }

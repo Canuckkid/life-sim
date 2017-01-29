@@ -1,17 +1,14 @@
 package life.view;
 
-import static sun.rmi.transport.TransportConstants.Magic;
-
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -77,12 +74,9 @@ public class OrganismSelector extends JPanel {
 
         for(int i = 0 ; i < IMAGE_SOURCES.length; i ++){
             try {
-                //BufferedImage imgsrc = ImageIO.read(new File(IMAGE_PATHS[i]));
                 BufferedImage imgsrc = ImageIO.read(IMAGE_SOURCES[i]);
                 images[i] = new ImageIcon(new ImageIcon(imgsrc).getImage().getScaledInstance(200, 100, Image.SCALE_DEFAULT));
             } catch (IOException e) {
-                //e.printStackTrace();
-                //System.out.println("Working Directory = " + System.getProperty("user.dir"));
             }
         }
     }
@@ -140,4 +134,9 @@ public class OrganismSelector extends JPanel {
     public void addImageListener(ActionListener l){
         imageBtn.addActionListener(l);
     }
+
+    public void removeFocus(){
+        imageBtn.setFocusPainted(false);
+    }
+
 }
