@@ -109,10 +109,9 @@ public class Game {
     private ActionListener restart = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            timer.stop();
             mEcosystem = initialEcosystem; //Reset
             mGameBoard.updateEcosystem(mEcosystem);
-            timer.start(); //Restart Timer
+            mGameBoard.getDrawArea().repaint();
         }
     };
 
@@ -214,20 +213,4 @@ public class Game {
             }
         }
     }
-
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    //GameBoard frame = new GameBoard();
-                    new Game();
-                    //frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
 }

@@ -35,7 +35,7 @@ public class OrganismSelector extends JPanel {
         getClass().getResourceAsStream("images/algae.jpg")};
 
     public OrganismSelector(){
-        this.setPreferredSize(new Dimension(300, 300));
+        this.setPreferredSize(new Dimension(300, 400));
 
         loadImages(); //Load the life.view.images from the directory
 

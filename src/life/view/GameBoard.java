@@ -63,14 +63,6 @@ public class GameBoard extends JFrame {
         for (int i=0; i<gbl_contentPane.rowHeights.length; i++) if (gbl_contentPane.rowHeights[i]==0) gbl_contentPane.rowHeights[i]=x;
         contentPane.setLayout(gbl_contentPane);
 
-        mOrganismSelector = new OrganismSelector();
-        GridBagConstraints sharkConstraints = new GridBagConstraints();
-        sharkConstraints.gridheight = 3;
-        sharkConstraints.gridwidth = 9;
-        sharkConstraints.gridx = 4;
-        sharkConstraints.gridy = 1;
-        contentPane.add(mOrganismSelector, sharkConstraints);
-
         BufferedImage imgsrc; 
         try{
          imgsrc = ImageIO.read(getClass().getResourceAsStream("images/life.png"));
@@ -117,6 +109,16 @@ public class GameBoard extends JFrame {
         biteSizedConstraints.gridy = 6;
         biteSizedConstraints.gridheight = 7;
         biteSizedConstraints.gridwidth = 7;
+
+        mOrganismSelector = new OrganismSelector();
+        GridBagConstraints organismConstraints = new GridBagConstraints();
+        organismConstraints.gridheight = 7;
+        organismConstraints.gridwidth = 7;
+        organismConstraints.gridx = 32;
+        organismConstraints.gridy = 12;
+        organismConstraints.fill = GridBagConstraints.NORTH;
+        organismConstraints.insets = new Insets(0, 0, 30, 0);
+        contentPane.add(mOrganismSelector, organismConstraints);
 
         contentPane.add(mEventsSelector, biteSizedConstraints);
 
@@ -169,13 +171,6 @@ public class GameBoard extends JFrame {
         gbc_btnStats.gridx = 37;
         gbc_btnStats.gridy = 23;
         contentPane.add(btnStats, gbc_btnStats);
-
-        JButton btnNewButton_1 = new JButton("Join life.Game");
-        GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-        gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-        gbc_btnNewButton_1.gridx = 37;
-        gbc_btnNewButton_1.gridy = 24;
-        contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
 
         this.pack();
         this.setVisible(true);

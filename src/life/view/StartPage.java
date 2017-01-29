@@ -1,11 +1,8 @@
 package life.view;
-import javax.swing.JButton; 
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JPanel; 
-import javax.swing.JFrame; 
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeListener;
-import java.awt.image.BufferedImage; 
+import javax.swing.JFrame;
 import javax.imageio.ImageIO; 
 import javax.swing.ImageIcon; 
 import java.awt.GridBagLayout; 
@@ -59,13 +56,19 @@ public class StartPage extends JFrame
         instructions.setMargin(new Insets(0, 0, 0, 0));
         instructions.setContentAreaFilled(false);   
 
-        contentPane.add (instructions, c); 
+        contentPane.add (instructions, c);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setPreferredSize(new Dimension(1080, 720));
+        this.pack();
+        this.setVisible(true);
     }
 
-    public static void main (String [] args)
-    {
-        StartPage startpage = new StartPage (); 
-        startpage.setSize (1600, 920); 
-        startpage.setVisible (true); 
+    public void addStartBtnListener(ActionListener l){
+        startbutton.addActionListener(l);
+    }
+
+    public void addRulesBtnListener(ActionListener l) {
+        instructions.addActionListener(l);
     }
 }
