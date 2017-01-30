@@ -25,6 +25,7 @@ public class StartPage extends JFrame
      */
     public StartPage()
     {
+        super("Life is Strange");
         contentPane = new ImagePanel("background.png");
         setContentPane (contentPane);
         setResizable (false);
