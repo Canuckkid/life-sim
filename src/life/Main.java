@@ -1,15 +1,19 @@
 package life;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import life.view.InstructionsPage;
 import life.view.StartPage;
 
 /**
  * Created by Varun on 2017-01-29.
  */
-public class Main {
+public class Main extends JFrame{
+
     private static StartPage mStartPage;
 
     private static ActionListener startListener = new ActionListener() {
@@ -31,7 +35,19 @@ public class Main {
     private static ActionListener rulesListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //Display the rules
+            InstructionsPage instructionsPage = new InstructionsPage();
+            instructionsPage.addBackListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mStartPage.resetContentPane();
+                    mStartPage.pack();
+                    mStartPage.repaint();
+                }
+            });
+
+            mStartPage.changeContentPane(instructionsPage);
+            mStartPage.pack();
+            mStartPage.repaint();
         }
     };
 

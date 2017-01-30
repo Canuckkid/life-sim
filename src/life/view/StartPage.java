@@ -1,52 +1,52 @@
 package life.view;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JPanel; 
+import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.imageio.ImageIO; 
-import javax.swing.ImageIcon; 
-import java.awt.GridBagLayout; 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
 import java.awt.*;
 
 /**
  * Write a description of class StartPage here.
- * 
- * @author (your name) 
+ *
+ * @author (your name)
  * @version (a version number or a date)
  */
 public class StartPage extends JFrame
 {
-    JButton startbutton; 
-    JButton instructions; 
-    private JPanel contentPane; 
+    JButton startbutton;
+    JButton instructions;
+    private JPanel contentPane;
 
     /**
      * Constructor for objects of class StartPage
      */
     public StartPage()
     {
-        contentPane = new ImagePanel("background.png"); 
-        setContentPane (contentPane); 
-        setResizable (false); 
+        contentPane = new ImagePanel("background.png");
+        setContentPane (contentPane);
+        setResizable (false);
         try{
             startbutton = new JButton (new ImageIcon(ImageIO.read(getClass().getResourceAsStream("images/startbutton.png"))));
             instructions = new JButton (new ImageIcon (ImageIO.read(getClass().getResourceAsStream("images/rules.png"))));
         }
-        catch (Exception e) 
+        catch (Exception e)
         {}
 
-        contentPane.setLayout(new GridBagLayout()); 
+        contentPane.setLayout(new GridBagLayout());
 
-        GridBagConstraints c = new GridBagConstraints(); 
+        GridBagConstraints c = new GridBagConstraints();
         c.weightx = 0.5;
         c.gridx = 1;
         c.gridy = 2;
         startbutton.setBorderPainted(false);//Gets rid of borders. Looks like one picture button
         startbutton.setBorder(null);
         startbutton.setMargin(new Insets(0, 0, 0, 0));
-        startbutton.setContentAreaFilled(false);   
+        startbutton.setContentAreaFilled(false);
 
-        contentPane.add (startbutton, c); 
+        contentPane.add (startbutton, c);
 
         c.weightx = 0.5;
         c.gridx = 2;
@@ -54,7 +54,7 @@ public class StartPage extends JFrame
         instructions.setBorderPainted(false);//Gets rid of borders. Looks like one picture button
         instructions.setBorder(null);
         instructions.setMargin(new Insets(0, 0, 0, 0));
-        instructions.setContentAreaFilled(false);   
+        instructions.setContentAreaFilled(false);
 
         contentPane.add (instructions, c);
 
@@ -70,5 +70,13 @@ public class StartPage extends JFrame
 
     public void addRulesBtnListener(ActionListener l) {
         instructions.addActionListener(l);
+    }
+
+    public void changeContentPane(JPanel panel) {
+        setContentPane(panel);
+    }
+
+    public void resetContentPane(){
+        setContentPane(contentPane);
     }
 }
